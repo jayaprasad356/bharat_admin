@@ -94,6 +94,16 @@ $fn = new custom_functions;
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css" integrity="sha256-tBxlolRHP9uMsEFKVk+hk//ekOlXOixLKvye5W2WR5c=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js" integrity="sha256-CtKylYan+AJuoH8jrMht1+1PMhMqrKnB8K5g012WN5I=" crossorigin="anonymous"></script>
+  <style>
+    .main-header .logo{
+        background-color:#FFB701!important;
+    }
+
+    header .navbar{
+       background-color: #dbcc67!important;
+    }
+  </style>
+
 </head>
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
