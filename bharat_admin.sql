@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2022 at 11:12 AM
+-- Generation Time: Oct 29, 2022 at 09:05 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -143,15 +143,18 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 
 CREATE TABLE `delivery_charges` (
   `id` int(11) NOT NULL,
-  `delivery_charge` int(11) DEFAULT NULL
+  `from` int(11) DEFAULT 0,
+  `to` int(11) DEFAULT 0,
+  `delivery_charge` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `delivery_charges`
 --
 
-INSERT INTO `delivery_charges` (`id`, `delivery_charge`) VALUES
-(1, 58);
+INSERT INTO `delivery_charges` (`id`, `from`, `to`, `delivery_charge`) VALUES
+(1, 500, 1000, 100),
+(2, 1001, 1500, 150);
 
 -- --------------------------------------------------------
 
@@ -499,7 +502,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `delivery_charges`
 --
 ALTER TABLE `delivery_charges`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `doctors`

@@ -9,15 +9,14 @@ $fn = new custom_functions;
 if (isset($_POST['btnUpdate'])) {
 
         $delivery_charge = $db->escapeString(($_POST['delivery_charge']));
-        
+
         if (empty($delivery_charge)) {
             $error['delivery_charge'] = " <span class='label label-danger'>Required!</span>";
         }
        
-       
        if (!empty($delivery_charge)) {
            
-            $sql_query = "UPDATE delivery_charges SET delivery_charge='$delivery_charge' WHERE id=1";
+            $sql_query = "UPDATE delivery_charges SET delivery_charge='$delivery_charge' WHERE id=$id";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -39,7 +38,7 @@ if (isset($_POST['btnUpdate'])) {
     // create array variable to store previous data
 $data = array();
 
-$sql_query = "SELECT * FROM delivery_charges WHERE id = 1";
+$sql_query = "SELECT * FROM delivery_charges";
 $db->sql($sql_query);
 $res = $db->getResult();
 ?>
@@ -65,39 +64,28 @@ $res = $db->getResult();
                 <form name="delivery_charge" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                            <div class="row">
-                                <div class="form-group">
+                               <?php
+                                    $sql = "SELECT * FROM `delivery_charges`";
+                                    $db->sql($sql);
+                                    $result = $db->getResult();
+                                    foreach ($result as $value) {
+                                ?>
+                                <div class="form-group" $ID=<?php echo $value['id']; ?>>
                                    <div class="col-md-4">
                                             <label for="exampleInputEmail1">Charge Limit From</label> <i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="from1" value=500 readonly>
+                                            <input type="number" class="form-control" name="from" value="<?= $value['from']; ?>" readonly>
                                     </div>
                                     <div class="col-md-4">
                                             <label for="exampleInputEmail1">Charge Limit To</label> <i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="to1" value=1000 readonly>
+                                            <input type="number" class="form-control" name="to" value="<?= $value['to']; ?>" readonly>
                                     </div>
                                     <div class="col-md-4">
                                             <label for="exampleInputEmail1">Delivery Charge</label> <i class="text-danger asterik">*</i><?php echo isset($error['delivery_charge']) ? $error['delivery_charge'] : ''; ?>
-                                            <input type="number" class="form-control" name="delivery_charge" value="<?= $res[0]['delivery_charge']; ?>" required>
+                                            <input type="number" class="form-control" name="delivery_charge" value="<?= $value['delivery_charge']; ?>" required>
                                     </div>
                                 </div>
+                                <?php } ?>
                             </div>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                   <div class="col-md-4">
-                                            <label for="exampleInputEmail1">Charge Limit From</label> <i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="from2" value=1001  readonly>
-                                    </div>
-                                    <div class="col-md-4">
-                                            <label for="exampleInputEmail1">Charge Limit To</label> <i class="text-danger asterik">*</i><?php echo isset($error['delivery_charge']) ? $error['delivery_charge'] : ''; ?>
-                                            <input type="number" class="form-control" name="to2" value=1500 readonly>
-                                    </div>
-                                    <div class="col-md-4">
-                                            <label for="exampleInputEmail1">Delivery Charge</label> <i class="text-danger asterik">*</i><?php echo isset($error['delivery_charge']) ? $error['delivery_charge'] : ''; ?>
-                                            <input type="number" class="form-control" name="delivery_charge" value="<?= $res[0]['delivery_charge']; ?>" required>
-                                    </div>
-                                </div>
-                            </div>
-         
                     </div>
                   
                     <!-- /.box-body -->
