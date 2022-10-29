@@ -7,33 +7,21 @@ $fn = new custom_functions;
 ?>
 <?php
 if (isset($_POST['btnUpdate'])) {
-
-        $delivery_charge = $db->escapeString(($_POST['delivery_charge']));
-
-        if (empty($delivery_charge)) {
-            $error['delivery_charge'] = " <span class='label label-danger'>Required!</span>";
-        }
-       
-       if (!empty($delivery_charge)) {
-           
-            $sql_query = "UPDATE delivery_charges SET delivery_charge='$delivery_charge' WHERE id=$id";
+        //$id = $db->escapeString($fn->xss_clean_array());
+        for ($i = 0; $i < count($_POST['id']); $i++) {
+            $id = $db->escapeString($fn->xss_clean($_POST['id'][$i]));
+            $from = $db->escapeString($fn->xss_clean($_POST['from'][$i]));
+            $to = $db->escapeString($fn->xss_clean($_POST['to'][$i]));
+            $delivery_charge = $db->escapeString($fn->xss_clean($_POST['delivery_charge'][$i]));
+            $sql_query = "UPDATE delivery_charges SET `from` = $from , `to` = $to , `delivery_charge` = $delivery_charge WHERE id = $id";
             $db->sql($sql_query);
-            $result = $db->getResult();
-            if (!empty($result)) {
-                $result = 0;
-            } else {
-                $result = 1;
-            }
 
-            if ($result == 1) {
-                
-                $error['update'] = "<section class='content-header'>
-                                                <span class='label label-success'>Delivery Charge Updated Successfully</span> </section>";
-            } else {
-                $error['update'] = " <span class='label label-danger'>Failed</span>";
-            }
         }
-    }
+           
+        $error['update'] = "<section class='content-header'>
+        <span class='label label-success'>Delivery Charge Updated Successfully</span> </section>";
+        }
+    
 
     // create array variable to store previous data
 $data = array();
@@ -70,18 +58,19 @@ $res = $db->getResult();
                                     $result = $db->getResult();
                                     foreach ($result as $value) {
                                 ?>
-                                <div class="form-group" $ID=<?php echo $value['id']; ?>>
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" name="id[]" value="<?= $value['id']; ?>" readonly>
                                    <div class="col-md-4">
                                             <label for="exampleInputEmail1">Charge Limit From</label> <i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="from" value="<?= $value['from']; ?>" readonly>
+                                            <input type="text" class="form-control" name="from[]" value="<?= $value['from']; ?>" readonly>
                                     </div>
                                     <div class="col-md-4">
                                             <label for="exampleInputEmail1">Charge Limit To</label> <i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="to" value="<?= $value['to']; ?>" readonly>
+                                            <input type="text" class="form-control" name="to[]" value="<?= $value['to']; ?>" readonly>
                                     </div>
                                     <div class="col-md-4">
                                             <label for="exampleInputEmail1">Delivery Charge</label> <i class="text-danger asterik">*</i><?php echo isset($error['delivery_charge']) ? $error['delivery_charge'] : ''; ?>
-                                            <input type="number" class="form-control" name="delivery_charge" value="<?= $value['delivery_charge']; ?>" required>
+                                            <input type="number" class="form-control" name="delivery_charge[]" value="<?= $value['delivery_charge']; ?>" required>
                                     </div>
                                 </div>
                                 <?php } ?>
