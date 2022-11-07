@@ -87,6 +87,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
     $rows = array();
     $tempRow = array();
     foreach ($res as $row) {
+        $user_id = $row['id'];
 
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
@@ -99,6 +100,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
         $tempRow['pincode'] = $row['pincode'];
         $tempRow['district'] = $row['district'];
         $tempRow['balance'] = $row['balance'];
+        $sql = "SELECT COUNT(id) AS total_orders FROM orders WHERE user_id = '$user_id' ";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $tempRow['total_orders'] = $res[0]['total_orders'];
         $rows[] = $tempRow;
         }
     $bulkData['rows'] = $rows;
@@ -211,7 +216,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'categories') {
 
         
         $operate = ' <a href="edit-category.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
-        //$operate = ' <a class="btn-xs btn-danger" href="delete-category.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
+        $operate .= ' <a class="btn-xs btn-danger" href="delete-category.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
 
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
@@ -417,6 +422,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
         $tempRow['product_name'] = $row['product_name'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['price'] = $row['price'];
+        $tempRow['method'] = $row['method'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
 

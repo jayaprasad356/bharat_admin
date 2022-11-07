@@ -31,6 +31,7 @@
                                     <th  data-field="pincode" data-sortable="true">Pincode</th>
                                     <th  data-field="district" data-sortable="true">District</th>
                                     <th  data-field="balance" data-sortable="true">Balance</th>
+                                    <th  data-field="total_orders" data-sortable="true">Total Orders</th>
                                 </tr>
                             </thead>
                         </table>

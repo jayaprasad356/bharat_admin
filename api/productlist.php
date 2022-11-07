@@ -18,35 +18,69 @@ if (empty($_POST['category_id'])) {
     return false;
 }
 $category_id = $db->escapeString($_POST['category_id']);
-
-$sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id  AND products.category_id = $category_id";
-$db->sql($sql);
-$res = $db->getResult();
-$num = $db->numRows($res);
-if ($num >= 1) {
-    
-    foreach ($res as $row) {
-        $temp['id'] = $row['id'];
-        $temp['category_name'] = $row['category_name'];
-        $temp['product_name'] = $row['product_name'];
-        $temp['brand'] = $row['brand'];
-        $temp['price'] = $row['price'];
-        $temp['description'] = $row['description'];
-        $temp['image'] = DOMAIN_URL . $row['image'];
-        $rows[] = $temp;
+if($category_id == 'all'){
+    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id";
+    $db->sql($sql);
+    $res = $db->getResult();
+    $num = $db->numRows($res);
+    if ($num >= 1) {
         
+        foreach ($res as $row) {
+            $temp['id'] = $row['id'];
+            $temp['category_name'] = $row['category_name'];
+            $temp['product_name'] = $row['product_name'];
+            $temp['brand'] = $row['brand'];
+            $temp['price'] = $row['price'];
+            $temp['description'] = $row['description'];
+            $temp['image'] = DOMAIN_URL . $row['image'];
+            $rows[] = $temp;
+            
+        }
+    
+        $response['success'] = true;
+        $response['message'] = "Products listed Successfully";
+        $response['data'] = $rows;
+        print_r(json_encode($response));
+    
+    }else{
+        $response['success'] = false;
+        $response['message'] = "No Products Found";
+        print_r(json_encode($response));
+    
     }
-
-    $response['success'] = true;
-    $response['message'] = "Products listed Successfully";
-    $response['data'] = $rows;
-    print_r(json_encode($response));
-
-}else{
-    $response['success'] = false;
-    $response['message'] = "No Products Found";
-    print_r(json_encode($response));
-
 }
+else{
+    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id  AND products.category_id = $category_id";
+    $db->sql($sql);
+    $res = $db->getResult();
+    $num = $db->numRows($res);
+    if ($num >= 1) {
+        
+        foreach ($res as $row) {
+            $temp['id'] = $row['id'];
+            $temp['category_name'] = $row['category_name'];
+            $temp['product_name'] = $row['product_name'];
+            $temp['brand'] = $row['brand'];
+            $temp['price'] = $row['price'];
+            $temp['description'] = $row['description'];
+            $temp['image'] = DOMAIN_URL . $row['image'];
+            $rows[] = $temp;
+            
+        }
+
+        $response['success'] = true;
+        $response['message'] = "Products listed Successfully";
+        $response['data'] = $rows;
+        print_r(json_encode($response));
+
+    }else{
+        $response['success'] = false;
+        $response['message'] = "No Products Found";
+        print_r(json_encode($response));
+
+    }
+}
+
+
 
 ?>
