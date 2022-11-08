@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2022 at 09:05 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Nov 08, 2022 at 05:54 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bharat_admin`
+-- Database: `bharat`
 --
 
 -- --------------------------------------------------------
@@ -105,7 +105,8 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) V
 (12, 10, 1, 2, '2022-09-12 13:24:01'),
 (14, 7, 1, 1, '2022-09-14 06:08:56'),
 (15, 5, 1, 2, '2022-09-15 11:27:05'),
-(17, 12, 1, 1, '2022-09-16 06:03:19');
+(17, 12, 1, 1, '2022-09-16 06:03:19'),
+(18, 5, 3, 1, '2022-11-04 19:17:31');
 
 -- --------------------------------------------------------
 
@@ -130,10 +131,7 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 (1, 'Daily Needs ', 'upload/images/1663412150.2429.jpg', 1, '2022-09-17 10:55:50', '2022-09-02 04:36:07'),
 (2, 'Health Care', 'upload/images/1662994580.2559.jpg', 0, '2022-09-12 14:56:20', '2022-09-09 07:27:24'),
 (3, 'Fintech', 'upload/images/1663412206.5938.jpg', 1, '2022-09-17 10:56:46', '2022-09-09 07:28:57'),
-(4, 'Agriculture ', 'upload/images/9708-2022-09-17.jpg', 0, NULL, '2022-09-17 10:57:13'),
-(5, 'test', 'upload/images/2211-2022-10-06.png', 0, NULL, '2022-10-06 16:35:45'),
-(6, 'demo', 'upload/images/6471-2022-10-06.jpg', 1, '2022-10-06 16:56:24', '2022-10-06 16:54:34'),
-(7, 'demo cat', 'upload/images/7579-2022-10-06.jpg', 0, NULL, '2022-10-06 17:00:28');
+(4, 'Agriculture ', 'upload/images/9708-2022-09-17.jpg', 0, NULL, '2022-09-17 10:57:13');
 
 -- --------------------------------------------------------
 
@@ -280,7 +278,7 @@ CREATE TABLE `settings` (
   `mobile` text DEFAULT NULL,
   `email` text DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `whatsapp` text DEFAULT NULL,
+  `linkedin` text DEFAULT NULL,
   `facebook` text DEFAULT NULL,
   `twitter` text DEFAULT NULL,
   `instagram` text DEFAULT NULL
@@ -290,8 +288,8 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `name`, `mobile`, `email`, `address`, `whatsapp`, `facebook`, `twitter`, `instagram`) VALUES
-(1, 'Admin', '9875689344', 'admin344@gmail.com', 'Tamilnadu,India', 'https://www.google.com/', 'https://www.google.com/', 'https://www.google.com/', 'https://www.google.com/');
+INSERT INTO `settings` (`id`, `name`, `mobile`, `email`, `address`, `linkedin`, `facebook`, `twitter`, `instagram`) VALUES
+(1, 'Admin', '9875689344', 'admin344@gmail.com', 'Tamilnadu,India', 'https://www.googledd', 'https://www.google.com/', 'https://www.google.com/', 'https://www.google.com/');
 
 -- --------------------------------------------------------
 
@@ -490,7 +488,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `categories`
