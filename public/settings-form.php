@@ -12,7 +12,7 @@ if (isset($_POST['btnUpdate'])) {
     $email = $db->escapeString(($_POST['email']));
     $mobile = $db->escapeString(($_POST['mobile']));
     $address = $db->escapeString(($_POST['address']));
-    $whatsapp = $db->escapeString(($_POST['whatsapp']));
+    $linkedin = $db->escapeString(($_POST['linkedin']));
     $facebook = $db->escapeString(($_POST['facebook']));
     $twitter = $db->escapeString(($_POST['twitter']));
     $instagram = $db->escapeString(($_POST['instagram']));
@@ -30,8 +30,8 @@ if (isset($_POST['btnUpdate'])) {
     if (empty($address)) {
         $error['address'] = " <span class='label label-danger'>Required!</span>";
     }
-    if (empty($whatsapp)) {
-        $error['whatsapp'] = " <span class='label label-danger'>Required!</span>";
+    if (empty($linkedin)) {
+        $error['linkedin'] = " <span class='label label-danger'>Required!</span>";
     }
     if (empty($facebook)) {
         $error['facebook'] = " <span class='label label-danger'>Required!</span>";
@@ -42,9 +42,9 @@ if (isset($_POST['btnUpdate'])) {
     if (empty($instagram)) {
         $error['instagram'] = " <span class='label label-danger'>Required!</span>";
     }
-       if (!empty($name) && !empty($mobile) && !empty($email) && !empty($address) && !empty($whatsapp)&& !empty($twitter) && !empty($facebook) && !empty($instagram)) {
+       if (!empty($name) && !empty($mobile) && !empty($email) && !empty($address) && !empty($linkedin)&& !empty($twitter) && !empty($facebook) && !empty($instagram)) {
            
-            $sql_query = "UPDATE settings SET name='$name',mobile='$mobile',email='$email',address='$address',whatsapp='$whatsapp',twitter='$twitter',facebook='$facebook',instagram='$instagram' WHERE id=1";
+            $sql_query = "UPDATE settings SET name='$name',mobile='$mobile',email='$email',address='$address',linkedin='$linkedin',twitter='$twitter',facebook='$facebook',instagram='$instagram' WHERE id=1";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -121,11 +121,11 @@ $res = $db->getResult();
                             <div class="row">
                                 <div class="form-group">
                                    <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Whatsapp</label> <i class="text-danger asterik">*</i><?php echo isset($error['whatsapp']) ? $error['whatsapp'] : ''; ?>
-                                            <input type="text" class="form-control" name="whatsapp" value="<?= $res[0]['whatsapp']; ?>" required>
+                                            <label for="exampleInputEmail1">Linkedin</label> <i class="text-danger asterik">*</i><?php echo isset($error['linkedin']) ? $error['linkedin'] : ''; ?>
+                                            <input type="text" class="form-control" name="linkedin" value="<?= $res[0]['linkedin']; ?>" required>
                                     </div>
                                     <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Twitter</label> <i class="text-danger asterik">*</i><?php echo isset($error['twitter']) ? $error['twitter'] : ''; ?>
+                                            <label for="exampleInputEmail1">Youtube</label> <i class="text-danger asterik">*</i><?php echo isset($error['twitter']) ? $error['twitter'] : ''; ?>
                                             <input type="text" class="form-control"  name="twitter" value="<?= $res[0]['twitter']; ?>" required>
                                     </div>
                                 </div>

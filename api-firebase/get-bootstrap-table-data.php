@@ -372,7 +372,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     $offset = 0;
     $limit = 10;
-    $sort = 'id';
+    $sort = 'orders.id';
     $order = 'DESC';
     $where = '';
     if (isset($_GET['offset']))
@@ -387,7 +387,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE product_name like '%" . $search . "%' OR brand like '%" . $search . "%'OR status like '%" . $search . "%'OR mobile like '%" . $search . "%'";
+        $where .= " AND users.name like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -402,7 +402,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT *,orders.id AS id,orders.status AS status FROM orders,products,users WHERE users.id=orders.user_id AND orders.product_id=products.id";
+    $sql = "SELECT *,orders.id AS id,orders.status AS status FROM orders,products,users WHERE users.id=orders.user_id AND orders.product_id=products.id". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
