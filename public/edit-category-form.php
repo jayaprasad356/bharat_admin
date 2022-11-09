@@ -105,29 +105,29 @@ if (isset($_POST['btnCancel'])) { ?>
 				<!-- form start -->
 				<form id="edit_category_form" method="post" enctype="multipart/form-data">
 					<div class="box-body">
-					<input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
-						<div class="form-group">
-							<label for="exampleInputEmail1">Category Name</label><?php echo isset($error['name']) ? $error['name'] : ''; ?><i class="text-danger asterik">*</i>
-							<input type="text" class="form-control" name="name" value="<?php echo $res[0]['name']; ?>">
-						</div>
+					   <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Category Name</label><?php echo isset($error['name']) ? $error['name'] : ''; ?><i class="text-danger asterik">*</i>
+								<input type="text" class="form-control" name="name" value="<?php echo $res[0]['name']; ?>">
+							</div>
 
-					<div class="form-group">
-						<label class="control-label">Status</label><i class="text-danger asterik">*</i>
-						<div id="status" class="btn-group">
-							<label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
-								<input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Deactivated
-							</label>
-							<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-								<input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Activated
-							</label>
-						</div>
-					</div>
+							<div class="form-group">
+								<label class="control-label">Status</label><i class="text-danger asterik">*</i>
+								<div id="status" class="btn-group">
+									<label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+										<input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Deactivated
+									</label>
+									<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+										<input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Activated
+									</label>
+								</div>
+							</div>
 					        <div class="row">
                                 <div class="form-group col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
                                         
-                                        <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
+                                        <	input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
                                     </div>
                                 </div>

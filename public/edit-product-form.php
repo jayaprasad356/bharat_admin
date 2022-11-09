@@ -17,6 +17,8 @@ if (isset($_POST['btnEdit'])) {
 
 	    $category = $db->escapeString(($_POST['category']));
 	    $product_name = $db->escapeString($_POST['product_name']);
+		$measurement = $db->escapeString($_POST['measurement']);
+        $unit = $db->escapeString($_POST['unit']);
         $brand = $db->escapeString($_POST['brand']);
 		$price = $db->escapeString($_POST['price']);
         $description = $db->escapeString($_POST['description']);
@@ -27,6 +29,12 @@ if (isset($_POST['btnEdit'])) {
         }
         if (empty($product_name)) {
             $error['product_name'] = " <span class='label label-danger'>Required!</span>";
+        }
+		if (empty($measurement)) {
+            $error['measurement'] = " <span class='label label-danger'>Required!</span>";
+        }
+        if (empty($unit)) {
+            $error['unit'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
@@ -40,7 +48,7 @@ if (isset($_POST['btnEdit'])) {
 
 		
 
-		if ( !empty($category) && !empty($product_name) && !empty($brand) && !empty($price) && !empty($description)) 
+		if ( !empty($category) && !empty($product_name) && !empty($measurement) && !empty($unit) && !empty($brand) && !empty($price) && !empty($description)) 
 		{
 			if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -65,7 +73,7 @@ if (isset($_POST['btnEdit'])) {
 				$db->sql($sql);
 			}
 			
-             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',brand='$brand',price='$price',description='$description' WHERE id =  $ID";
+             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',measurement='$measurement',unit='$unit',brand='$brand',price='$price',description='$description' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -122,6 +130,10 @@ if (isset($_POST['btnCancel'])) { ?>
 					    <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
 						   <div class="row">
 							    <div class="form-group">
+								    <div class="col-md-4">
+										<label for="exampleInputEmail1">Product Name</label><i class="text-danger asterik">*</i><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
+										<input type="text" class="form-control" name="product_name" value="<?php echo $res[0]['product_name']; ?>">
+									 </div>
 									<div class='col-md-4'>
 									          <label for="exampleInputEmail1">Category</label> <i class="text-danger asterik">*</i>
 												<select id='category' name="category" class='form-control' required>
@@ -138,18 +150,32 @@ if (isset($_POST['btnCancel'])) { ?>
                                                             <?php } ?>
                                                 </select>
 									</div>
-									 <div class="col-md-4">
-										<label for="exampleInputEmail1">Product Name</label><i class="text-danger asterik">*</i><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
-										<input type="text" class="form-control" name="product_name" value="<?php echo $res[0]['product_name']; ?>">
-									 </div>
+									<div class="col-md-4">
+										<label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
+										<select id="brand" name="brand" class="form-control">
+											<option value="">-- Select --</option>
+											<option value="Natures Plus"<?=$res[0]['brand'] == 'Natures Plus' ? ' selected="selected"' : '';?>>Natures Plus</option>
+											<option value="Plantic"<?=$res[0]['brand'] == 'Plantic' ? ' selected="selected"' : '';?> >Plantic</option>
+											<option value="Enviro"<?=$res[0]['brand'] == 'Enviro' ? ' selected="selected"' : '';?> >Enviro</option>
+											<option value="Biosafe"<?=$res[0]['brand'] == 'Biosafe' ? ' selected="selected"' : '';?> >Biosafe</option>
+										</select>
+									</div>
 								</div>
 						   </div>
-						   <hr>
+						   <br>
 						   <div class="row">
 								<div class="form-group">
 								    <div class="col-md-4">
-										<label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
-										<input type="text" class="form-control" name="brand" value="<?php echo $res[0]['brand']; ?>">
+										<label for="exampleInputEmail1">Measurement</label><i class="text-danger asterik">*</i><?php echo isset($error['measurement']) ? $error['measurement'] : ''; ?>
+										<input type="text" class="form-control" name="measurement" value="<?php echo $res[0]['measurement']; ?>">
+									 </div>
+									 <div class="col-md-4">
+										<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i><?php echo isset($error['unit']) ? $error['unit'] : ''; ?>
+										<select id="unit" name="unit" class="form-control">
+											<option value="none">-- Select --</option>
+											<option value="Kg"<?=$res[0]['unit'] == 'Kg' ? ' selected="selected"' : '';?>>Kg</option>
+											<option value="gm"<?=$res[0]['unit'] == 'gm' ? ' selected="selected"' : '';?> >gm</option>
+                                         </select>
 									 </div>
 									 <div class="col-md-4">
 										<label for="exampleInputEmail1">Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
@@ -158,12 +184,12 @@ if (isset($_POST['btnCancel'])) { ?>
 									
 								</div>
 						   </div>
-						   <hr>
+						   <br>
 						   <div class="row">
 							    <div class="form-group">
-									 <div class="col-md-4">
+									 <div class="col-md-6">
 										<label for="exampleInputEmail1">Description</label><i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
-										<input type="text" class="form-control" name="description" value="<?php echo $res[0]['description']; ?>">
+										<textarea type="text" rows="3" class="form-control" name="description"><?php echo $res[0]['description']; ?></textarea>
 									 </div>
 									 <div class="col-md-4">
 									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
@@ -173,10 +199,9 @@ if (isset($_POST['btnCancel'])) { ?>
 									 </div>
 								</div>
 						   </div>
-						   <hr>
 						   
 					
-						</div><!-- /.box-body -->
+					</div><!-- /.box-body -->
                        
 					<div class="box-footer">
 						<button type="submit" class="btn btn-primary" name="btnEdit">Update</button>

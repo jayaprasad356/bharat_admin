@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2022 at 05:54 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Nov 09, 2022 at 11:54 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bharat`
+-- Database: `bharat_admin`
 --
 
 -- --------------------------------------------------------
@@ -234,7 +234,7 @@ INSERT INTO `orders` (`id`, `user_id`, `product_id`, `method`, `total`, `quantit
 (10, 12, 1, 'COD', 2000, 1, '60', '8709095817', 60, '2022-09-16', 'Ordered'),
 (11, 14, 2, 'COD', 5000, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
 (12, 14, 3, 'COD', 280, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
-(13, 14, 3, 'COD', 280, 1, '58', '9191919191', 58, '2022-09-20', 'Ordered');
+(13, 14, 3, 'COD', 280, 1, '58', '9191919191', 58, '2022-09-20', '2');
 
 -- --------------------------------------------------------
 
@@ -248,6 +248,8 @@ CREATE TABLE `products` (
   `product_name` text DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `brand` text DEFAULT NULL,
+  `measurement` int(200) DEFAULT 0,
+  `unit` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -256,15 +258,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `brand`, `description`, `image`) VALUES
-(1, 4, 'Pottasium Fertilizer', 2000, 'NPK', 'Industry Standard', 'upload/products/9231-2022-09-02.jpg'),
-(2, 4, 'Cattle Feed ', 5000, 'RCF', 'Best Nutrition For Your Cattle ', 'upload/products/9729-2022-09-17.jpg'),
-(3, 1, 'Tea', 280, 'Patent Tea Gold', 'Finest Blend Superior Taste ', 'upload/products/7051-2022-09-17.jpg'),
-(4, 1, 'Tea', 260, 'Patent Tea Gold', 'Premium Tea ', 'upload/products/3134-2022-09-17.jpg'),
-(5, 1, 'Tea', 240, 'Patent Tea Morning', 'Superior Taste ', 'upload/products/0826-2022-09-17.jpg'),
-(6, 1, 'Tea', 220, 'Patent Tea 100', 'Bestselling Tea', 'upload/products/9265-2022-09-17.jpg'),
-(7, 1, 'test', 3566, 'test', 'test', 'upload/products/5967-2022-10-06.png'),
-(8, 1, 'test', 3000, 'test', 'fdfdfd', 'upload/products/2282-2022-10-06.jpg');
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
+(1, 3, 'NPK Fertilizer', 250, 'Biosafe', 2, 'Kg', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
 
 -- --------------------------------------------------------
 
@@ -333,29 +328,31 @@ CREATE TABLE `users` (
   `village` varchar(255) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `district` varchar(255) DEFAULT NULL,
-  `balance` int(11) NOT NULL DEFAULT 0
+  `balance` int(11) NOT NULL DEFAULT 0,
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `password`, `occupation`, `gender`, `email`, `address`, `village`, `pincode`, `district`, `balance`) VALUES
-(1, 'Nehan', '9876543210', '1234', 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0),
-(2, 'Sanjay', '6544678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0),
-(3, 'Sanjay', '6555678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0),
-(4, 'Sanjay', '6995678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', 'dsds', 0),
-(5, 'prasad jp', '9898989898', 'jp123', 'Farmer', 'Male', 'jayaprasad356@gmail.com', 'ghahs', 'jaja', '613279', 'hsbsbs', 650),
-(6, 'huhhh', '9999999999', 'sweswe', 'Business', 'Female', 'jayaprasad.s@care.ac.in', 'fgg', 'hhh', 'gy', 'vh', 0),
-(7, 'harsh Vardhan', '9717723876', 'Harsh@3434', 'Farmer', 'Male', 'Vardhan1109@gmail.com', 'H.n 343 balu Pura', 'gha', '201001', 'Ghaziabad', 600),
-(8, 'Deepak Sharma', '9254447828', 'Dabbu@15', 'Others', 'Male', 'deepaksharma015@gmail.com', 'Narnaul', 'Narnaul', '123001', 'Mahendergarh', 0),
-(9, 'prabal pratap singh', '9716332976', '781974', 'Others', 'Male', 'hiprabal@gmail.com', '232/30 E, new kot gaon, G T road', 'new kot gaon', '201001', 'ghaziabad', 0),
-(10, 'Surya', '8080808080', '12345678', 'business', 'Male', 'surya@gmail.com', 'East street', 'Nehru Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0),
-(11, 'sundar', '9797979797', 'jp123', 'software', 'Male', 'sundar@gmail.com', 'East Street', 'Manambadi', '612503', 'Thanjavur', 500),
-(12, 'pankaj', '8709095817', '8709095817', 'Business', 'Male', 'singh4384@gmail.com', 'Bibiganj', 'Bampali', '802312', 'Bhojpur', 0),
-(13, 'harry', '9717723878', 'Harsh@3434', 'Business', 'Male', 'vardhan1109@gmail.com', 'hhh', 'Ashok Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0),
-(14, 'testID', '9191919191', 'abc123', 'Distributor', 'Male', 'abc@xyz.com', 'n/a', 'New Friends Colony', '110025', 'South Delhi', 0),
-(15, 'Nirali', '9650472984', 'qwert6789', 'business', 'Female', 'niralisingh24@gmail.com', 'Uninav heights', 'Raj Nagar Extension', '201017', 'Ghaziabad', 0);
+INSERT INTO `users` (`id`, `name`, `mobile`, `password`, `occupation`, `gender`, `email`, `address`, `village`, `pincode`, `district`, `balance`, `image`) VALUES
+(1, 'Nehan', '9876543210', '1234', 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
+(2, 'Sanjay', '6544678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
+(3, 'Sanjay', '6555678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0, NULL),
+(4, 'Sanjay', '6995678899', 'sanjay123', 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', 'dsds', 0, NULL),
+(5, 'prasad jp', '9898989898', 'jp123', 'Farmer', 'Male', 'jayaprasad356@gmail.com', 'ghahs', 'jaja', '613279', 'hsbsbs', 650, NULL),
+(6, 'huhhh', '9999999999', 'sweswe', 'Business', 'Female', 'jayaprasad.s@care.ac.in', 'fgg', 'hhh', 'gy', 'vh', 0, NULL),
+(7, 'harsh Vardhan', '9717723876', 'Harsh@3434', 'Farmer', 'Male', 'Vardhan1109@gmail.com', 'H.n 343 balu Pura', 'gha', '201001', 'Ghaziabad', 600, NULL),
+(8, 'Deepak Sharma', '9254447828', 'Dabbu@15', 'Others', 'Male', 'deepaksharma015@gmail.com', 'Narnaul', 'Narnaul', '123001', 'Mahendergarh', 0, NULL),
+(9, 'prabal pratap singh', '9716332976', '781974', 'Others', 'Male', 'hiprabal@gmail.com', '232/30 E, new kot gaon, G T road', 'new kot gaon', '201001', 'ghaziabad', 0, NULL),
+(10, 'Surya', '8080808080', '12345678', 'business', 'Male', 'surya@gmail.com', 'East street', 'Nehru Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL),
+(11, 'sundar', '9797979797', 'jp123', 'software', 'Male', 'sundar@gmail.com', 'East Street', 'Manambadi', '612503', 'Thanjavur', 500, NULL),
+(12, 'pankaj', '8709095817', '8709095817', 'Business', 'Male', 'singh4384@gmail.com', 'Bibiganj', 'Bampali', '802312', 'Bhojpur', 0, NULL),
+(13, 'harry', '9717723878', 'Harsh@3434', 'Business', 'Male', 'vardhan1109@gmail.com', 'hhh', 'Ashok Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL),
+(14, 'testID', '9191919191', 'abc123', 'Distributor', 'Male', 'abc@xyz.com', 'n/a', 'New Friends Colony', '110025', 'South Delhi', 0, NULL),
+(15, 'Nirali', '9650472984', 'qwert6789', 'business', 'Female', 'niralisingh24@gmail.com', 'Uninav heights', 'Raj Nagar Extension', '201017', 'Ghaziabad', 0, NULL),
+(16, 'Sanjai', '7358832695', 'admin@r8374', 'Farmer', 'Male', 'sanjai12@gmail.com', 'Trichy', 'manndaram', '621313', 'Tamilnadu', 0, 'upload/users/6209-2022-11-09.jpg');
 
 -- --------------------------------------------------------
 
@@ -524,7 +521,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -542,7 +539,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `wallet_transactions`

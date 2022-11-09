@@ -14,6 +14,8 @@ if (isset($_POST['btnAdd'])) {
 
         $category = $db->escapeString(($_POST['category']));
         $product_name = $db->escapeString($_POST['product_name']);
+        $measurement = $db->escapeString($_POST['measurement']);
+        $unit = $db->escapeString($_POST['unit']);
         $brand = $db->escapeString($_POST['brand']);
         $price = $db->escapeString($_POST['price']);
         $description = $db->escapeString($_POST['description']);
@@ -38,6 +40,12 @@ if (isset($_POST['btnAdd'])) {
         if (empty($product_name)) {
             $error['product_name'] = " <span class='label label-danger'>Required!</span>";
         }
+        if (empty($measurement)) {
+            $error['measurement'] = " <span class='label label-danger'>Required!</span>";
+        }
+        if (empty($unit)) {
+            $error['unit'] = " <span class='label label-danger'>Required!</span>";
+        }
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
         }
@@ -49,7 +57,7 @@ if (isset($_POST['btnAdd'])) {
         }
        
        
-       if (!empty($category) && !empty($product_name) && !empty($brand)&& !empty($price) && !empty($description)) {
+       if (!empty($category) && !empty($product_name)&& !empty($measurement)&& !empty($unit) && !empty($brand)&& !empty($price) && !empty($description)) {
             $result = $fn->validate_image($_FILES["product_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -64,7 +72,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,price,description,image)VALUES('$category','$product_name','$brand','$price','$description','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,measurement,unit,price,description,image)VALUES('$category','$product_name','$brand','$measurement','$unit','$price','$description','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -108,34 +116,50 @@ if (isset($_POST['btnAdd'])) {
                     <div class="box-body">
                            <div class="row">
                                 <div class="form-group">
-                                <div class="col-md-4">
+                                    <div class="col-md-4">
                                             <label for="exampleInputEmail1">Product Name</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
                                             <input type="text" class="form-control" name="product_name" required>
                                     </div>
                                     <div class='col-md-4'>
                                         <label for="">Category</label> <i class="text-danger asterik">*</i>
                                         <select id='category' name="category" class='form-control' required>
-                                        <option value="">Select</option>
+                                            <option value="">Select</option>
                                                 <?php
-                                                $sql = "SELECT * FROM `categories`WHERE status=1";
-                                                $db->sql($sql);
-                                                $result = $db->getResult();
-                                                foreach ($result as $value) {
+                                                    $sql = "SELECT * FROM `categories`WHERE status=1";
+                                                    $db->sql($sql);
+                                                    $result = $db->getResult();
+                                                    foreach ($result as $value) {
                                                 ?>
                                                     <option value='<?= $value['id'] ?>'><?= $value['name'] ?></option>
-                                            <?php } ?>
-                                            </select>
+                                                <?php } ?>
+                                        </select>
                                     </div>
-
-                                   
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Brand</label> <i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
+                                        <select  name="brand" id="brand" class="form-control" required>
+                                            <option value="">-- Select --</option>
+                                            <option value="Natures Plus">Natures Plus</option>
+                                            <option value="Plantic">Plantic</option>
+                                            <option value="Enviro">Enviro</option>
+                                            <option value="Biosafe">Biosafe</option>
+                                         </select>  
+                                    </div>
                                 </div>
                             </div>
-                            <hr>
+                            <br>
                             <div class="row">
                                 <div class="form-group">
-                                   <div class="col-md-4">
-                                        <label for="exampleInputEmail1">Brand</label> <i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
-                                        <input type="text" class="form-control" name="brand" required />
+                                   <div class="col-md-3">
+                                        <label for="exampleInputEmail1">Measurement</label> <i class="text-danger asterik">*</i><?php echo isset($error['measurement']) ? $error['measurement'] : ''; ?>
+                                        <input type="number" class="form-control" name="measurement" required />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="unit">Unit</label> <i class="text-danger asterik">*</i>
+                                         <select  name="unit" id="unit" class="form-control" required>
+                                            <option value="">-- Select Unit --</option>
+                                            <option value="Kg">Kg</option>
+                                            <option value="gm">gm</option>
+                                         </select>  
                                     </div>
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Price</label> <i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
@@ -144,12 +168,12 @@ if (isset($_POST['btnAdd'])) {
 
                                 </div>
                             </div>
-                            <hr>
+                            <br>
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                             <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
-                                            <textarea type="text" class="form-control" rows="5" name="description" required></textarea>
+                                            <textarea type="text" class="form-control" rows="3" name="description" required></textarea>
                                     </div>
                                     <div class="col-md-4">
                                          <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
@@ -159,7 +183,6 @@ if (isset($_POST['btnAdd'])) {
 
                                  </div>
                             </div>
-         
                     </div>
                   
                     <!-- /.box-body -->

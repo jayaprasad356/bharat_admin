@@ -48,6 +48,14 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['brand'] ?></td>
                             </tr>
                             <tr>
+                                <th style="width: 200px">Measurement</th>
+                                <td><?php echo $res[0]['measurement'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Unit</th>
+                                <td><?php echo $res[0]['unit'] ?></td>
+                            </tr>
+                            <tr>
                                 <th style="width: 200px">Price</th>
                                 <td><?php echo $res[0]['price'] ?></td>
                             </tr>

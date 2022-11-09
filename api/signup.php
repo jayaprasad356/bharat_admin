@@ -9,9 +9,14 @@ header("Pragma: no-cache");
 
 
 include_once('../includes/crud.php');
+include_once('../includes/functions.php');
+$function = new functions;
+include_once('../includes/custom-functions.php');
+$fn = new custom_functions;
 
 $db = new Database();
 $db->connect();
+
 
 if (empty($_POST['name'])) {
     $response['success'] = false;
@@ -73,6 +78,12 @@ if (empty($_POST['district'])) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['image'])) {
+    $response['success'] = false;
+    $response['message'] = "Aadhar proof is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 $name = $db->escapeString($_POST['name']);
 $mobile = $db->escapeString($_POST['mobile']);
 $password = $db->escapeString($_POST['password']);
@@ -83,6 +94,19 @@ $address = $db->escapeString($_POST['address']);
 $village = $db->escapeString($_POST['village']);
 $pincode = $db->escapeString($_POST['pincode']);
 $district = $db->escapeString($_POST['district']);
+
+$image = $db->escapeString($fn->xss_clean($_FILES['image']['name']));
+$image_error = $db->escapeString($fn->xss_clean($_FILES['image']['error']));
+$image_type = $db->escapeString($fn->xss_clean($_FILES['image']['type']));
+
+ // create array variable to handle error
+ $error = array();
+ // common image file extensions
+ $allowedExts = array("gif", "jpeg", "jpg", "png");
+
+ // get image file extension
+ error_reporting(E_ERROR | E_PARSE);
+ $extension = end(explode(".", $_FILES["image"]["name"]));
 
 $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND password='$password'";
 $db->sql($sql);
@@ -95,7 +119,19 @@ if ($num == 1) {
     return false;
 }
 else{
-    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`)VALUES('$name','$mobile','$password','$occupation','$gender','$email','$address','$village','$pincode','$district',0)";
+    $result = $fn->validate_image($_FILES["image"]);
+    // create random image file name
+    $string = '0123456789';
+    $file = preg_replace("/\s+/", "_", $_FILES['image']['name']);
+    $menu_image = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+
+    // upload new image
+    $upload = move_uploaded_file($_FILES['image']['tmp_name'], '../upload/users/' . $menu_image);
+
+    // insert new data to menu table
+    $upload_image = 'upload/users/' . $menu_image;
+
+    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`,image)VALUES('$name','$mobile','$password','$occupation','$gender','$email','$address','$village','$pincode','$district',0,'$upload_image')";
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND password='$password'";
     $db->sql($sql);

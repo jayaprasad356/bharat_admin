@@ -99,6 +99,13 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
         $tempRow['village'] = $row['village'];
         $tempRow['pincode'] = $row['pincode'];
         $tempRow['district'] = $row['district'];
+        if(!empty($row['image'])){
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
+
+        }else{
+            $tempRow['image'] = 'No Image';
+
+        }
         $tempRow['balance'] = $row['balance'];
         $sql = "SELECT COUNT(id) AS total_orders FROM orders WHERE user_id = '$user_id' ";
         $db->sql($sql);
@@ -283,6 +290,8 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
         $tempRow['id'] = $row['id'];
         $tempRow['category_id'] = $row['category_id'];
         $tempRow['product_name'] = $row['product_name'];
+        $tempRow['measurement'] = $row['measurement'];
+        $tempRow['unit'] = $row['unit'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['price'] = $row['price'];
         $tempRow['description'] = $row['description'];
