@@ -137,11 +137,16 @@ if (isset($_POST['btnAdd'])) {
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Brand</label> <i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
                                         <select  name="brand" id="brand" class="form-control" required>
-                                            <option value="">-- Select --</option>
-                                            <option value="Natures Plus">Natures Plus</option>
-                                            <option value="Plantic">Plantic</option>
-                                            <option value="Enviro">Enviro</option>
-                                            <option value="Biosafe">Biosafe</option>
+                                            <option value="">Select</option>
+                                                <?php
+                                                    $sql = "SELECT * FROM `brands`";
+                                                    $db->sql($sql);
+                                                    $result = $db->getResult();
+                                                    foreach ($result as $value) {
+                                                ?>
+                                                    <option value='<?= $value['brand'] ?>'><?= $value['brand'] ?></option>
+                                                <?php } ?>
+
                                          </select>  
                                     </div>
                                 </div>
@@ -157,7 +162,7 @@ if (isset($_POST['btnAdd'])) {
                                         <label for="unit">Unit</label> <i class="text-danger asterik">*</i>
                                          <select  name="unit" id="unit" class="form-control" required>
                                             <option value="">-- Select Unit --</option>
-                                            <option value="Kg">Kg</option>
+                                            <option value="kg">kg</option>
                                             <option value="gm">gm</option>
                                          </select>  
                                     </div>

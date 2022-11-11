@@ -153,11 +153,18 @@ if (isset($_POST['btnCancel'])) { ?>
 									<div class="col-md-4">
 										<label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
 										<select id="brand" name="brand" class="form-control">
-											<option value="">-- Select --</option>
-											<option value="Natures Plus"<?=$res[0]['brand'] == 'Natures Plus' ? ' selected="selected"' : '';?>>Natures Plus</option>
-											<option value="Plantic"<?=$res[0]['brand'] == 'Plantic' ? ' selected="selected"' : '';?> >Plantic</option>
-											<option value="Enviro"<?=$res[0]['brand'] == 'Enviro' ? ' selected="selected"' : '';?> >Enviro</option>
-											<option value="Biosafe"<?=$res[0]['brand'] == 'Biosafe' ? ' selected="selected"' : '';?> >Biosafe</option>
+									
+											<option value="none">Select</option>
+                                                            <?php
+                                                            $sql = "SELECT * FROM `brands`";
+                                                            $db->sql($sql);
+
+                                                            $result = $db->getResult();
+                                                            foreach ($result as $value) {
+                                                            ?>
+															 <option value='<?= $value['brand'] ?>' <?= $value['brand']==$res[0]['brand'] ? 'selected="selected"' : '';?>><?= $value['brand'] ?></option>
+                                                               
+                                                            <?php } ?>
 										</select>
 									</div>
 								</div>
@@ -173,7 +180,7 @@ if (isset($_POST['btnCancel'])) { ?>
 										<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i><?php echo isset($error['unit']) ? $error['unit'] : ''; ?>
 										<select id="unit" name="unit" class="form-control">
 											<option value="none">-- Select --</option>
-											<option value="Kg"<?=$res[0]['unit'] == 'Kg' ? ' selected="selected"' : '';?>>Kg</option>
+											<option value="kg"<?=$res[0]['unit'] == 'kg' ? ' selected="selected"' : '';?>>kg</option>
 											<option value="gm"<?=$res[0]['unit'] == 'gm' ? ' selected="selected"' : '';?> >gm</option>
                                          </select>
 									 </div>

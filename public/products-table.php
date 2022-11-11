@@ -25,7 +25,7 @@
                                     <th  data-field="id" data-sortable="true">ID</th>
                                     <th data-field="category_id" data-sortable="true">Category Id</th>
                                     <th  data-field="product_name" data-sortable="true">Product Name</th>
-                                    <th  data-field="brand" data-sortable="true"> Brand</th>
+                                    <!-- <th  data-field="brand" data-sortable="true"> Brand</th> -->
                                     <th  data-field="measurement" data-sortable="true">Measurement</th>
                                     <th  data-field="unit" data-sortable="true">Unit</th>
                                     <th  data-field="price" data-sortable="true"> Price</th>

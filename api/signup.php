@@ -78,12 +78,12 @@ if (empty($_POST['district'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['image'])) {
-    $response['success'] = false;
-    $response['message'] = "Aadhar proof is Empty";
-    print_r(json_encode($response));
-    return false;
-}
+// if (empty($_POST['image'])) {
+//     $response['success'] = false;
+//     $response['message'] = "Aadhar proof is Empty";
+//     print_r(json_encode($response));
+//     return false;
+// }
 $name = $db->escapeString($_POST['name']);
 $mobile = $db->escapeString($_POST['mobile']);
 $password = $db->escapeString($_POST['password']);

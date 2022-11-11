@@ -22,11 +22,7 @@ if (empty($_POST['category_id'])) {
     return false;
 }
 $category_id = $db->escapeString($_POST['category_id']);
-$from = $db->escapeString($_POST['from']);
-$to = $db->escapeString($_POST['to']);
-$from_m = $db->escapeString($_POST['from_m']);
-$to_m = $db->escapeString($_POST['to_m']);
-$brand = $db->escapeString($_POST['brand']);
+
 
 if($category_id == 'all'){
     $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id AND products.price > $from AND products.price <= $to";
@@ -63,11 +59,32 @@ if($category_id == 'all'){
 }
 else{
     $where = "";
+    if ((isset($_POST['from'])  && $_POST['from'] != '')) {
+        $from = $db->escapeString($fn->xss_clean($_POST['from']));
+        $where .= "AND products.price > $from ";
+    }
+    if ((isset($_POST['to'])  && $_POST['to'] != '')) {
+        $to = $db->escapeString($fn->xss_clean($_POST['to']));
+        $where .= "AND products.price <= $to ";
+    }
+
+    if ((isset($_POST['from_m'])  && $_POST['from_m'] != '')) {
+        $from_m = $db->escapeString($fn->xss_clean($_POST['from_m']));
+        $where .= "AND products.measurement > $from_m ";
+    }
+    if ((isset($_POST['to_m'])  && $_POST['to_m'] != '')) {
+        $to_m = $db->escapeString($fn->xss_clean($_POST['to_m']));
+        $where .= "AND products.measurement <= $to_m ";
+    }
     if ((isset($_POST['brand'])  && $_POST['brand'] != '')) {
         $brand = $db->escapeString($fn->xss_clean($_POST['brand']));
-        $where .= "AND products.brand='$brand'";
+        $where .= "AND products.brand='$brand' ";
     }
-    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id AND products.price > $from AND products.price <= $to AND products.measurement > $from_m AND products.measurement <= $to_m ".$where;
+    if ((isset($_POST['unit'])  && $_POST['unit'] != '')) {
+        $unit = $db->escapeString($fn->xss_clean($_POST['unit']));
+        $where .= "AND products.unit='$unit' ";
+    }
+    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id ".$where;
     $db->sql($sql);
     $res = $db->getResult();
     $num = $db->numRows($res);
