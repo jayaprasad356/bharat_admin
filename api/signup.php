@@ -36,6 +36,12 @@ if (empty($_POST['password'])) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['aadhaar_num'])) {
+    $response['success'] = false;
+    $response['message'] = "Aadhaar Number is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 if (empty($_POST['occupation'])) {
     $response['success'] = false;
     $response['message'] = "Occupation is Empty";
@@ -87,6 +93,7 @@ if (empty($_POST['district'])) {
 $name = $db->escapeString($_POST['name']);
 $mobile = $db->escapeString($_POST['mobile']);
 $password = $db->escapeString($_POST['password']);
+$aadhaar_num = $db->escapeString($_POST['aadhaar_num']);
 $occupation = $db->escapeString($_POST['occupation']);
 $gender = $db->escapeString($_POST['gender']);
 $email = $db->escapeString($_POST['email']);
@@ -131,7 +138,7 @@ else{
     // insert new data to menu table
     $upload_image = 'upload/users/' . $menu_image;
 
-    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`,image)VALUES('$name','$mobile','$password','$occupation','$gender','$email','$address','$village','$pincode','$district',0,'$upload_image')";
+    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`aadhaar_num`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`,image)VALUES('$name','$mobile','$password','$occupation','$aadhaar_num','$gender','$email','$address','$village','$pincode','$district',0,'$upload_image')";
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND password='$password'";
     $db->sql($sql);

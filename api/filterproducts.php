@@ -25,6 +25,7 @@ if ($num >= 1) {
         $temp['product_name'] = $row['product_name'];
         $temp['brand'] = $row['brand'];
         $temp['price'] = $row['price'];
+        $temp['mrp'] = $row['mrp'];
         $temp['description'] = $row['description'];
         $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;

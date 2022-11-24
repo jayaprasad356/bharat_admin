@@ -93,6 +93,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['password'] = $row['password'];
+        $tempRow['aadhaar_num'] = $row['aadhaar_num'];
         $tempRow['occupation'] = $row['occupation'];
         $tempRow['gender'] = $row['gender'];
         $tempRow['address'] = $row['address'];
@@ -294,6 +295,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
         $tempRow['unit'] = $row['unit'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['price'] = $row['price'];
+        $tempRow['mrp'] = $row['mrp'];
         $tempRow['description'] = $row['description'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
@@ -431,6 +433,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
         $tempRow['product_name'] = $row['product_name'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['price'] = $row['price'];
+        $tempRow['mrp'] = $row['mrp'];
         $tempRow['method'] = $row['method'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";

@@ -98,6 +98,7 @@ else{
             $temp['measurement'] = $row['measurement'];
             $temp['unit'] = $row['unit'];
             $temp['price'] = $row['price'];
+            $temp['mrp'] = $row['mrp'];
             $temp['description'] = $row['description'];
             $temp['image'] = DOMAIN_URL . $row['image'];
             $rows[] = $temp;

@@ -29,6 +29,7 @@
                                     <th  data-field="measurement" data-sortable="true">Measurement</th>
                                     <th  data-field="unit" data-sortable="true">Unit</th>
                                     <th  data-field="price" data-sortable="true"> Price</th>
+                                    <th  data-field="mrp" data-sortable="true"> MRP(price)</th>
                                     <th  data-field="description" data-sortable="true">Description</th>
                                     <th data-field="image">Image</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>

@@ -60,6 +60,10 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['price'] ?></td>
                             </tr>
                             <tr>
+                                <th style="width: 200px">MRP(Max.Retail.Price)</th>
+                                <td><?php echo $res[0]['mrp'] ?></td>
+                            </tr>
+                            <tr>
                                 <th style="width: 200px">Address</th>
                                 <td><?php echo $res[0]['address'] ?></td>
                             </tr>

@@ -24,6 +24,7 @@
                                     <th data-field="name" data-sortable="true">Name</th>
                                     <th  data-field="mobile" data-sortable="true">Mobile Number</th>
                                     <th  data-field="password" data-sortable="true"> Password</th>
+                                    <th  data-field="aadhaar_num" data-sortable="true"> Aadhaar Number</th>
                                     <th  data-field="occupation" data-sortable="true">Occupation</th>
                                     <th  data-field="gender" data-sortable="true"> Gender</th>
                                     <th  data-field="address" data-sortable="true">Address</th>

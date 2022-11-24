@@ -18,6 +18,7 @@ if (isset($_POST['btnAdd'])) {
         $unit = $db->escapeString($_POST['unit']);
         $brand = $db->escapeString($_POST['brand']);
         $price = $db->escapeString($_POST['price']);
+        $mrp = $db->escapeString($_POST['mrp']);
         $description = $db->escapeString($_POST['description']);
         
         // get image info
@@ -52,12 +53,15 @@ if (isset($_POST['btnAdd'])) {
         if (empty($price)) {
             $error['price'] = " <span class='label label-danger'>Required!</span>";
         }
+        if (empty($mrp)) {
+            $error['mrp'] = " <span class='label label-danger'>Required!</span>";
+        }
         if (empty($description)) {
             $error['description'] = " <span class='label label-danger'>Required!</span>";
         }
        
        
-       if (!empty($category) && !empty($product_name)&& !empty($measurement)&& !empty($unit) && !empty($brand)&& !empty($price) && !empty($description)) {
+       if (!empty($category) && !empty($product_name)&& !empty($measurement)&& !empty($unit) && !empty($brand)&& !empty($price) && !empty($mrp)  && !empty($description)) {
             $result = $fn->validate_image($_FILES["product_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -72,7 +76,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,measurement,unit,price,description,image)VALUES('$category','$product_name','$brand','$measurement','$unit','$price','$description','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,measurement,unit,price,mrp,description,image)VALUES('$category','$product_name','$brand','$measurement','$unit','$price','$mrp','$description','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -164,6 +168,8 @@ if (isset($_POST['btnAdd'])) {
                                             <option value="">-- Select Unit --</option>
                                             <option value="kg">kg</option>
                                             <option value="gm">gm</option>
+                                            <option value="l">l</option>
+                                            <option value="ml">ml</option>
                                          </select>  
                                     </div>
                                     <div class="col-md-4">
@@ -176,17 +182,25 @@ if (isset($_POST['btnAdd'])) {
                             <br>
                             <div class="row">
                                 <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Max.Retail.Price(MRP)</label> <i class="text-danger asterik">*</i><?php echo isset($error['mrp']) ? $error['mrp'] : ''; ?>
+                                        <input type="number" class="form-control" name="mrp" required />
+                                    </div>
                                     <div class="col-md-6">
                                             <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
                                             <textarea type="text" class="form-control" rows="3" name="description" required></textarea>
                                     </div>
+                                 </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
                                     <div class="col-md-4">
                                          <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
                                         <input type="file" name="product_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="product_image" required/>
                                         <img id="blah" src="#" alt="" />
                                     </div>
-
-                                 </div>
+                                </div>
                             </div>
                     </div>
                   
