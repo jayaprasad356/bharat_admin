@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2022 at 08:27 AM
+-- Generation Time: Nov 24, 2022 at 12:13 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -81,6 +81,34 @@ INSERT INTO `appointments` (`id`, `user_id`, `doctor_id`, `name`, `mobile`, `age
 (7, 11, 1, 'ghh', NULL, '808', 'cv', 'vvv', 'gg', 'ggg', NULL, NULL),
 (8, 11, 1, 'ffgggh', NULL, '88', 'vvbbbv', 'vvvvv', 'vvvv', 'vvvv', NULL, NULL),
 (9, 11, 1, 'ghhhhh', NULL, '25', 'cvbbbvg bhh', 'kumbakonqm', 'gbb', 'vbb', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brands`
+--
+
+CREATE TABLE `brands` (
+  `id` int(11) NOT NULL,
+  `brand` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `brand`) VALUES
+(1, 'John Phillips'),
+(2, 'Safe 2 shine'),
+(3, 'Him Herbal'),
+(4, 'Pioneer'),
+(5, 'Sarju\'s'),
+(6, 'Meenal'),
+(7, 'Alto'),
+(8, 'Krishi Gaurav'),
+(9, 'Pheasant Bio'),
+(10, 'Shyama'),
+(11, 'Comfomax');
 
 -- --------------------------------------------------------
 
@@ -403,6 +431,12 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -483,6 +517,12 @@ ALTER TABLE `addresses`
 --
 ALTER TABLE `appointments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cart`
