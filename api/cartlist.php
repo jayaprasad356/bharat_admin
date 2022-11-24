@@ -31,6 +31,7 @@ if($num>=1){
         $temp['price'] = $row['price'];
         $temp['product_name'] = $row['product_name'];
         $temp['quantity'] = $row['quantity'];
+        $temp['mrp'] = $row['mrp'];
         $temp['brand'] = $row['brand'];
         $temp['description'] = $row['description'];
         $temp['image'] = DOMAIN_URL . $row['image'];

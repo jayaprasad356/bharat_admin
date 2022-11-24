@@ -21,7 +21,8 @@ if (isset($_POST['btnEdit'])) {
         $unit = $db->escapeString($_POST['unit']);
         $brand = $db->escapeString($_POST['brand']);
 		$price = $db->escapeString($_POST['price']);
-        $description = $db->escapeString($_POST['description']);
+		$mrp = $db->escapeString($_POST['mrp']);
+		$description = $db->escapeString($_POST['description']);
 		$error = array();
 
 		if (empty($category)) {
@@ -48,7 +49,7 @@ if (isset($_POST['btnEdit'])) {
 
 		
 
-		if ( !empty($category) && !empty($product_name) && !empty($measurement) && !empty($unit) && !empty($brand) && !empty($price) && !empty($description)) 
+		if ( !empty($category) && !empty($product_name) && !empty($measurement) && !empty($unit) && !empty($brand) && !empty($price) && !empty($mrp) && !empty($description)) 
 		{
 			if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -73,7 +74,7 @@ if (isset($_POST['btnEdit'])) {
 				$db->sql($sql);
 			}
 			
-             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',measurement='$measurement',unit='$unit',brand='$brand',price='$price',description='$description' WHERE id =  $ID";
+             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',measurement='$measurement',unit='$unit',brand='$brand',price='$price',mrp='$mrp',description='$description' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -182,7 +183,10 @@ if (isset($_POST['btnCancel'])) { ?>
 											<option value="none">-- Select --</option>
 											<option value="kg"<?=$res[0]['unit'] == 'kg' ? ' selected="selected"' : '';?>>kg</option>
 											<option value="gm"<?=$res[0]['unit'] == 'gm' ? ' selected="selected"' : '';?> >gm</option>
-                                         </select>
+											<option value="l"<?=$res[0]['unit'] == 'l' ? ' selected="selected"' : '';?> >l</option>
+											<option value="ml"<?=$res[0]['unit'] == 'ml' ? ' selected="selected"' : '';?> >ml</option>
+
+										</select>
 									 </div>
 									 <div class="col-md-4">
 										<label for="exampleInputEmail1">Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
@@ -194,16 +198,25 @@ if (isset($_POST['btnCancel'])) { ?>
 						   <br>
 						   <div class="row">
 							    <div class="form-group">
+							     	<div class="col-md-4">
+										<label for="exampleInputEmail1">Max.Retail.Price(MRP)</label><i class="text-danger asterik">*</i><?php echo isset($error['mrp']) ? $error['mrp'] : ''; ?>
+										<input type="text" class="form-control" name="mrp" value="<?php echo $res[0]['mrp']; ?>">
+									 </div>
 									 <div class="col-md-6">
 										<label for="exampleInputEmail1">Description</label><i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
 										<textarea type="text" rows="3" class="form-control" name="description"><?php echo $res[0]['description']; ?></textarea>
 									 </div>
-									 <div class="col-md-4">
-									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
-                                        
-                                        <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
-                                        <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="height:100px;max-width:100%" /></p>
-									 </div>
+								</div>
+						   </div>
+						   <br>
+						   <div class="row">
+								<div class="form-group">
+										<div class="col-md-4">
+											<label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
+											
+											<input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
+											<p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="height:100px;max-width:100%" /></p>
+										</div>
 								</div>
 						   </div>
 						   

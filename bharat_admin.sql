@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2022 at 08:23 AM
+-- Generation Time: Nov 24, 2022 at 08:27 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -247,6 +247,7 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `product_name` text DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
+  `mrp` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `measurement` int(200) DEFAULT 0,
   `unit` text DEFAULT NULL,
@@ -258,8 +259,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
-(1, 3, 'NPK Fertilizer', 250, 'Biosafe', 2, 'Kg', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `mrp`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
+(1, 3, 'NPK Fertilizer', 250, '500', 'none', 2, 'kg', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
 
 -- --------------------------------------------------------
 

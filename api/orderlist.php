@@ -43,6 +43,7 @@ if ($num >= 1){
                 $temp['category_id'] = $row['category_id'];
                 $temp['product_name'] = $row['product_name'];
                 $temp['price'] = $row['price'];
+                $temp['mrp'] = $row['mrp'];
                 $temp['brand'] = $row['brand'];
                 $temp['description'] = $row['description'];
                 $temp['image'] = DOMAIN_URL . $row['image'];
