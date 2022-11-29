@@ -170,6 +170,8 @@ if (isset($_POST['btnAdd'])) {
                                             <option value="gm">gm</option>
                                             <option value="l">l</option>
                                             <option value="ml">ml</option>
+                                            <option value="pcs">pcs</option>
+
                                          </select>  
                                     </div>
                                     <div class="col-md-4">
