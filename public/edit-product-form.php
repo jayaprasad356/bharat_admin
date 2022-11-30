@@ -185,6 +185,7 @@ if (isset($_POST['btnCancel'])) { ?>
 											<option value="gm"<?=$res[0]['unit'] == 'gm' ? ' selected="selected"' : '';?> >gm</option>
 											<option value="l"<?=$res[0]['unit'] == 'l' ? ' selected="selected"' : '';?> >l</option>
 											<option value="ml"<?=$res[0]['unit'] == 'ml' ? ' selected="selected"' : '';?> >ml</option>
+											<option value="pcs"<?=$res[0]['unit'] == 'pcs' ? ' selected="selected"' : '';?> >pcs</option>
 
 										</select>
 									 </div>
