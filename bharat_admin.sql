@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 06:16 AM
+-- Generation Time: Nov 24, 2022 at 12:13 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -288,7 +288,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `mrp`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
-(1, 3, 'NPK Fertilizer', 250, '500', 'none', 2, 'pcs', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
+(1, 3, 'NPK Fertilizer', 250, '500', 'none', 2, 'kg', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
 
 -- --------------------------------------------------------
 
@@ -305,16 +305,15 @@ CREATE TABLE `settings` (
   `linkedin` text DEFAULT NULL,
   `facebook` text DEFAULT NULL,
   `twitter` text DEFAULT NULL,
-  `instagram` text DEFAULT NULL,
-  `discount_perncentage` text DEFAULT NULL
+  `instagram` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `name`, `mobile`, `email`, `address`, `linkedin`, `facebook`, `twitter`, `instagram`, `discount_perncentage`) VALUES
-(1, 'Admin', '9875689344', 'admin344@gmail.com', 'Tamilnadu,India', 'https://www.googledd', 'https://www.google.com/', 'https://www.google.com/', 'https://www.google.com/', '7');
+INSERT INTO `settings` (`id`, `name`, `mobile`, `email`, `address`, `linkedin`, `facebook`, `twitter`, `instagram`) VALUES
+(1, 'Admin', '9875689344', 'admin344@gmail.com', 'Tamilnadu,India', 'https://www.googledd', 'https://www.google.com/', 'https://www.google.com/', 'https://www.google.com/');
 
 -- --------------------------------------------------------
 

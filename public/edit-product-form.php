@@ -181,11 +181,10 @@ if (isset($_POST['btnCancel'])) { ?>
 										<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i><?php echo isset($error['unit']) ? $error['unit'] : ''; ?>
 										<select id="unit" name="unit" class="form-control">
 											<option value="none">-- Select --</option>
-											<option value="kg"<?=$res[0]['unit'] == 'kg' ? ' selected="selected"' : '';?>>kg</option>
-											<option value="gm"<?=$res[0]['unit'] == 'gm' ? ' selected="selected"' : '';?> >gm</option>
-											<option value="l"<?=$res[0]['unit'] == 'l' ? ' selected="selected"' : '';?> >l</option>
-											<option value="ml"<?=$res[0]['unit'] == 'ml' ? ' selected="selected"' : '';?> >ml</option>
-											<option value="pcs"<?=$res[0]['unit'] == 'pcs' ? ' selected="selected"' : '';?> >pcs</option>
+											<option value="Kg"<?=$res[0]['unit'] == 'Kg' ? ' selected="selected"' : '';?>>Kg</option>
+											<option value="Gm"<?=$res[0]['unit'] == 'Gm' ? ' selected="selected"' : '';?> >Gm</option>
+											<option value="Ltr"<?=$res[0]['unit'] == 'Ltr' ? ' selected="selected"' : '';?> >Ltr</option>
+											<option value="Ml"<?=$res[0]['unit'] == 'Ml' ? ' selected="selected"' : '';?> >Ml</option>
 
 										</select>
 									 </div>

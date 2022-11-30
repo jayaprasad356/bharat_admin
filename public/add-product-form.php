@@ -166,12 +166,10 @@ if (isset($_POST['btnAdd'])) {
                                         <label for="unit">Unit</label> <i class="text-danger asterik">*</i>
                                          <select  name="unit" id="unit" class="form-control" required>
                                             <option value="">-- Select Unit --</option>
-                                            <option value="kg">kg</option>
-                                            <option value="gm">gm</option>
-                                            <option value="l">l</option>
-                                            <option value="ml">ml</option>
-                                            <option value="pcs">pcs</option>
-
+                                            <option value="Kg">Kg</option>
+                                            <option value="Gm">Gm</option>
+                                            <option value="Ltr">Ltr</option>
+                                            <option value="Ml">Ml</option>
                                          </select>  
                                     </div>
                                     <div class="col-md-4">

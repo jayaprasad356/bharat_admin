@@ -25,7 +25,7 @@ $category_id = $db->escapeString($_POST['category_id']);
 
 
 if($category_id == 'all'){
-    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id AND products.price > $from AND products.price <= $to";
+    $sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id";
     $db->sql($sql);
     $res = $db->getResult();
     $num = $db->numRows($res);

@@ -115,11 +115,11 @@ $image_type = $db->escapeString($fn->xss_clean($_FILES['image']['type']));
  error_reporting(E_ERROR | E_PARSE);
  $extension = end(explode(".", $_FILES["image"]["name"]));
 
-$sql = "SELECT * FROM users WHERE mobile = '$mobile' AND password='$password'";
+$sql = "SELECT * FROM users WHERE mobile = '$mobile'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
-if ($num == 1) {
+if ($num >= 1) {
     $response['success'] = false;
     $response['message'] ="Mobile Number Already Exists";
     print_r(json_encode($response));

@@ -16,8 +16,6 @@ if (isset($_POST['btnUpdate'])) {
     $facebook = $db->escapeString(($_POST['facebook']));
     $twitter = $db->escapeString(($_POST['twitter']));
     $instagram = $db->escapeString(($_POST['instagram']));
-    $discount_perncentage = $db->escapeString(($_POST['discount_perncentage']));
-
     $error = array();
     
     if (empty($name)) {
@@ -44,13 +42,9 @@ if (isset($_POST['btnUpdate'])) {
     if (empty($instagram)) {
         $error['instagram'] = " <span class='label label-danger'>Required!</span>";
     }
-    if (empty($discount_perncentage)) {
-        $error['discount_perncentage'] = " <span class='label label-danger'>Required!</span>";
-    }
-
-       if (!empty($name) && !empty($mobile) && !empty($email) && !empty($address) && !empty($linkedin)&& !empty($twitter) && !empty($facebook) && !empty($instagram) && !empty($discount_perncentage)) {
+       if (!empty($name) && !empty($mobile) && !empty($email) && !empty($address) && !empty($linkedin)&& !empty($twitter) && !empty($facebook) && !empty($instagram)) {
            
-            $sql_query = "UPDATE settings SET name='$name',mobile='$mobile',email='$email',address='$address',linkedin='$linkedin',twitter='$twitter',facebook='$facebook',instagram='$instagram',discount_perncentage='$discount_perncentage' WHERE id=1";
+            $sql_query = "UPDATE settings SET name='$name',mobile='$mobile',email='$email',address='$address',linkedin='$linkedin',twitter='$twitter',facebook='$facebook',instagram='$instagram' WHERE id=1";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -77,7 +71,7 @@ $db->sql($sql_query);
 $res = $db->getResult();
 ?>
 <section class="content-header">
-    <h1>Settings</h1>
+    <h1>Profile Details</h1>
     <?php echo isset($error['update']) ? $error['update'] : ''; ?>
     <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
@@ -149,11 +143,6 @@ $res = $db->getResult();
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="form-group">
-                                            <label for="exampleInputEmail1">Discount Percentage(%)</label> <i class="text-danger asterik">*</i><?php echo isset($error['discount_perncentage']) ? $error['discount_perncentage'] : ''; ?>
-                                            <input type="number" class="form-control" name="discount_perncentage" value="<?= $res[0]['discount_perncentage']; ?>" required>
-                           </div>
                     </div>
                   
                     <!-- /.box-body -->
