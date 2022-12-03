@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2022 at 12:13 PM
+-- Generation Time: Dec 03, 2022 at 08:40 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -129,7 +129,6 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
-(1, 1, 1, 3, '2022-09-09 10:22:55'),
 (12, 10, 1, 2, '2022-09-12 13:24:01'),
 (14, 7, 1, 1, '2022-09-14 06:08:56'),
 (15, 5, 1, 2, '2022-09-15 11:27:05'),
@@ -262,7 +261,8 @@ INSERT INTO `orders` (`id`, `user_id`, `product_id`, `method`, `total`, `quantit
 (10, 12, 1, 'COD', 2000, 1, '60', '8709095817', 60, '2022-09-16', 'Ordered'),
 (11, 14, 2, 'COD', 5000, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
 (12, 14, 3, 'COD', 280, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
-(13, 14, 3, 'COD', 280, 1, '58', '9191919191', 58, '2022-09-20', '2');
+(13, 14, 3, 'COD', 280, 1, '58', '9191919191', 58, '2022-09-20', '2'),
+(14, 1, 1, 'cod', 500, 3, 'chenai', '9765435567', 20, '2022-11-30', 'Ordered');
 
 -- --------------------------------------------------------
 
@@ -276,6 +276,7 @@ CREATE TABLE `products` (
   `product_name` text DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `mrp` text DEFAULT NULL,
+  `discount_percentage` int(200) DEFAULT 0,
   `brand` text DEFAULT NULL,
   `measurement` int(200) DEFAULT 0,
   `unit` text DEFAULT NULL,
@@ -287,8 +288,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `mrp`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
-(1, 3, 'NPK Fertilizer', 250, '500', 'none', 2, 'kg', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `price`, `mrp`, `discount_percentage`, `brand`, `measurement`, `unit`, `description`, `image`) VALUES
+(1, 3, 'NPK Fertilizer', 500, '900', 56, 'Safe 2 shine', 2, 'Gm', 'By using this product we can protect the crop field from insects', 'upload/products/6503-2022-11-09.jpg');
 
 -- --------------------------------------------------------
 
@@ -367,9 +368,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `mobile`, `password`, `aadhaar_num`, `occupation`, `gender`, `email`, `address`, `village`, `pincode`, `district`, `balance`, `image`) VALUES
-(1, 'Nehan', '9876543210', '1234', NULL, 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
-(2, 'Sanjay', '6544678899', 'sanjay123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
-(3, 'Sanjay', '6555678899', 'sanjay123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0, NULL),
+(1, 'Nehan', '9876543210', 'admin123', NULL, 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
+(2, 'Sanjay', '6544678899', 'admin123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
+(3, 'Sanjay', '6555678899', '123445', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0, NULL),
 (4, 'Sanjay', '6995678899', 'sanjay123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', 'dsds', 0, NULL),
 (5, 'prasad jp', '9898989898', 'jp123', NULL, 'Farmer', 'Male', 'jayaprasad356@gmail.com', 'ghahs', 'jaja', '613279', 'hsbsbs', 650, NULL),
 (6, 'huhhh', '9999999999', 'sweswe', NULL, 'Business', 'Female', 'jayaprasad.s@care.ac.in', 'fgg', 'hhh', 'gy', 'vh', 0, NULL),
@@ -558,13 +559,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `settings`

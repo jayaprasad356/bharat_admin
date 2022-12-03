@@ -59,9 +59,12 @@ if (isset($_POST['btnAdd'])) {
         if (empty($description)) {
             $error['description'] = " <span class='label label-danger'>Required!</span>";
         }
+        if($mrp < $price){
+            $error['add_product'] = " <span class='label label-danger'>MRP not less than price</span>";
+        }
        
        
-       if (!empty($category) && !empty($product_name)&& !empty($measurement)&& !empty($unit) && !empty($brand)&& !empty($price) && !empty($mrp)  && !empty($description)) {
+       if (!empty($category) && !empty($product_name)&& !empty($measurement)&& !empty($unit) && !empty($brand)&& !empty($price) && !empty($mrp)  && !empty($description) &&  ($mrp >= $price)) {
             $result = $fn->validate_image($_FILES["product_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -74,9 +77,9 @@ if (isset($_POST['btnAdd'])) {
                 // insert new data to menu table
                 $upload_image = 'upload/products/' . $menu_image;
 
-            
+            $discount_percentage= $price / $mrp *100;
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,measurement,unit,price,mrp,description,image)VALUES('$category','$product_name','$brand','$measurement','$unit','$price','$mrp','$description','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,measurement,unit,price,mrp,discount_percentage,description,image)VALUES('$category','$product_name','$brand','$measurement','$unit','$price','$mrp','$discount_percentage','$description','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -170,6 +173,7 @@ if (isset($_POST['btnAdd'])) {
                                             <option value="Gm">Gm</option>
                                             <option value="Ltr">Ltr</option>
                                             <option value="Ml">Ml</option>
+                                            <option value="Pcs">Pcs</option>
                                          </select>  
                                     </div>
                                     <div class="col-md-4">

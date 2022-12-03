@@ -46,10 +46,13 @@ if (isset($_POST['btnEdit'])) {
         if (empty($description)) {
             $error['description'] = " <span class='label label-danger'>Required!</span>";
         }
+		if($mrp < $price){
+            $error['add_product'] = " <span class='label label-danger'>MRP not less than price</span>";
+        }
 
 		
 
-		if ( !empty($category) && !empty($product_name) && !empty($measurement) && !empty($unit) && !empty($brand) && !empty($price) && !empty($mrp) && !empty($description)) 
+		if ( !empty($category) && !empty($product_name) && !empty($measurement) && !empty($unit) && !empty($brand) && !empty($price) && !empty($mrp) && !empty($description) &&  ($mrp >= $price)) 
 		{
 			if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -73,8 +76,9 @@ if (isset($_POST['btnEdit'])) {
 				$sql = "UPDATE products SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
 				$db->sql($sql);
 			}
-			
-             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',measurement='$measurement',unit='$unit',brand='$brand',price='$price',mrp='$mrp',description='$description' WHERE id =  $ID";
+			$discount_percentage= ($price/$mrp ) *100;
+			echo $discount_percentage;
+             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',measurement='$measurement',unit='$unit',brand='$brand',price='$price',mrp='$mrp',discount_percentage='$discount_percentage',description='$description' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -185,6 +189,7 @@ if (isset($_POST['btnCancel'])) { ?>
 											<option value="Gm"<?=$res[0]['unit'] == 'Gm' ? ' selected="selected"' : '';?> >Gm</option>
 											<option value="Ltr"<?=$res[0]['unit'] == 'Ltr' ? ' selected="selected"' : '';?> >Ltr</option>
 											<option value="Ml"<?=$res[0]['unit'] == 'Ml' ? ' selected="selected"' : '';?> >Ml</option>
+											<option value="Pcs"<?=$res[0]['unit'] == 'Pcs' ? ' selected="selected"' : '';?> >Pcs</option>
 
 										</select>
 									 </div>
