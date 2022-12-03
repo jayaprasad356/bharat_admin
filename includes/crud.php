@@ -1,7 +1,7 @@
 <?php
 
 
-define('DOMAIN_URL', 'https://localhost/bharat_admin/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
+define('DOMAIN_URL', 'https://appadmin.project-bharat.com/bharat/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); /* chnage to your secret key here set it to anything you like*/
 
@@ -15,9 +15,9 @@ class Database
      */
 
     private $db_host = "localhost";  // Change as required
-    private $db_user = "root";  // Change as required
-    private $db_pass = "";  // Change as required
-    private $db_name = "bharat_admin";    // Change as required
+    private $db_user = "mxpbadmin_bharat";  // Change as required
+    private $db_pass = "bharat@654321";  // Change as required
+    private $db_name = "mxpbadmin_bharat";    // Change as required
 
     /*
      * Extra variables that are required by other function such as boolean con variable
