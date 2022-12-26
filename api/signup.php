@@ -90,6 +90,7 @@ if (empty($_POST['district'])) {
 //     print_r(json_encode($response));
 //     return false;
 // }
+$date = date('Y-m-d');
 $name = $db->escapeString($_POST['name']);
 $mobile = $db->escapeString($_POST['mobile']);
 $password = $db->escapeString($_POST['password']);
@@ -138,7 +139,7 @@ else{
     // insert new data to menu table
     $upload_image = 'upload/users/' . $menu_image;
 
-    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`aadhaar_num`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`,image)VALUES('$name','$mobile','$password','$occupation','$aadhaar_num','$gender','$email','$address','$village','$pincode','$district',0,'$upload_image')";
+    $sql = "INSERT INTO users (`name`,`mobile`,`password`,`occupation`,`aadhaar_num`,`gender`,`email`,`address`,`village`,`pincode`,`district`,`balance`,`registered_date`,image)VALUES('$name','$mobile','$password','$occupation','$aadhaar_num','$gender','$email','$address','$village','$pincode','$district',0,'$date','$upload_image')";
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND password='$password'";
     $db->sql($sql);

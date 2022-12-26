@@ -12,6 +12,12 @@
             <!-- Left col -->
             <div class="col-xs-12">
                 <div class="box">
+                   <div class="box-header">
+                           <div class="form-group col-md-3">
+                                <h4 class="box-title">Filter by Order Date </h4><br>
+                                <input type="date" class="form-control" name="date" id="date" />
+                            </div>
+                    </div>
 
                     <!-- /.box-header -->
                     <div class="box-body table-responsive">
@@ -29,6 +35,7 @@
                                     <th data-field="price" data-sortable="true">Price</th>
                                     <th data-field="mrp" data-sortable="true">MRP(price)</th>
                                     <th data-field="method" data-sortable="true">Mode</th>
+                                    <th data-field="order_date" data-sortable="true">Order Date</th>
                                     <th data-field="image">Image</th>
                                     <th data-field="status">Status</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>   
@@ -47,18 +54,13 @@
     </section>
 <script>
 
-    $('#seller_id').on('change', function() {
-        $('#products_table').bootstrapTable('refresh');
-    });
-    $('#community').on('change', function() {
+    $('#date').on('change', function() {
         $('#users_table').bootstrapTable('refresh');
     });
 
     function queryParams(p) {
         return {
-            "category_id": $('#category_id').val(),
-            "seller_id": $('#seller_id').val(),
-            "community": $('#community').val(),
+            "date": $('#date').val(),
             limit: p.limit,
             sort: p.sort,
             order: p.order,

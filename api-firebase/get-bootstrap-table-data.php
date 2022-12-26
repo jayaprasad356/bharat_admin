@@ -49,6 +49,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
     $where = '';
     $sort = 'id';
     $order = 'DESC';
+    if (isset($_GET['date']) && $_GET['date'] != '') {
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND registered_date='$date' ";
+    }
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
     if (isset($_GET['limit']))
@@ -61,7 +65,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE name like '%" . $search . "%' OR mobile like '%" . $search . "%'  OR pincode like '%" . $search . "%'  OR address like '%" . $search . "%'  OR district like '%" . $search . "%'";
+        $where .= "AND name like '%" . $search . "%' OR mobile like '%" . $search . "%'  OR pincode like '%" . $search . "%'  OR address like '%" . $search . "%'  OR district like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -71,13 +75,13 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
         $order = $db->escapeString($_GET['order']);
 
     }        
-    $sql = "SELECT COUNT(`id`) as total FROM `users`" . $where;
+    $sql = "SELECT COUNT(`id`) as total FROM `users` WHERE id IS NOT NULL " . $where;
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM users ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM users WHERE id IS NOT NULL " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -107,6 +111,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
             $tempRow['image'] = 'No Image';
 
         }
+        $tempRow['registered_date'] = $row['registered_date'];
         $tempRow['balance'] = $row['balance'];
         $sql = "SELECT COUNT(id) AS total_orders FROM orders WHERE user_id = '$user_id' ";
         $db->sql($sql);
@@ -386,6 +391,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     $sort = 'orders.id';
     $order = 'DESC';
     $where = '';
+    if (isset($_GET['date']) && $_GET['date'] != '') {
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND order_date='$date' ";
+    }
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
     if (isset($_GET['limit']))
@@ -398,7 +407,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= " AND users.name like '%" . $search . "%'";
+        $where .= "AND users.name like '%" . $search . "%' ";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -407,7 +416,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `orders` ";
+    $sql = "SELECT COUNT(`id`) as total FROM `orders` " . $where;
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
@@ -435,6 +444,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
         $tempRow['price'] = $row['price'];
         $tempRow['mrp'] = $row['mrp'];
         $tempRow['method'] = $row['method'];
+        $tempRow['order_date'] = $row['order_date'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
 

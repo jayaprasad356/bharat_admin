@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2022 at 08:40 AM
+-- Generation Time: Dec 26, 2022 at 12:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -262,7 +262,7 @@ INSERT INTO `orders` (`id`, `user_id`, `product_id`, `method`, `total`, `quantit
 (11, 14, 2, 'COD', 5000, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
 (12, 14, 3, 'COD', 280, 1, '60', '9191919191', 60, '2022-09-17', 'Ordered'),
 (13, 14, 3, 'COD', 280, 1, '58', '9191919191', 58, '2022-09-20', '2'),
-(14, 1, 1, 'cod', 500, 3, 'chenai', '9765435567', 20, '2022-11-30', 'Ordered');
+(14, 1, 1, 'cod', 500, 3, 'chenai', '9765435567', 20, '2022-11-30', '0');
 
 -- --------------------------------------------------------
 
@@ -360,6 +360,7 @@ CREATE TABLE `users` (
   `pincode` varchar(255) DEFAULT NULL,
   `district` varchar(255) DEFAULT NULL,
   `balance` int(11) NOT NULL DEFAULT 0,
+  `registered_date` text DEFAULT NULL,
   `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -367,24 +368,24 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `password`, `aadhaar_num`, `occupation`, `gender`, `email`, `address`, `village`, `pincode`, `district`, `balance`, `image`) VALUES
-(1, 'Nehan', '9876543210', 'admin123', NULL, 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
-(2, 'Sanjay', '6544678899', 'admin123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0, NULL),
-(3, 'Sanjay', '6555678899', '123445', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0, NULL),
-(4, 'Sanjay', '6995678899', 'sanjay123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', 'dsds', 0, NULL),
-(5, 'prasad jp', '9898989898', 'jp123', NULL, 'Farmer', 'Male', 'jayaprasad356@gmail.com', 'ghahs', 'jaja', '613279', 'hsbsbs', 650, NULL),
-(6, 'huhhh', '9999999999', 'sweswe', NULL, 'Business', 'Female', 'jayaprasad.s@care.ac.in', 'fgg', 'hhh', 'gy', 'vh', 0, NULL),
-(7, 'harsh Vardhan', '9717723876', 'Harsh@3434', NULL, 'Farmer', 'Male', 'Vardhan1109@gmail.com', 'H.n 343 balu Pura', 'gha', '201001', 'Ghaziabad', 600, NULL),
-(8, 'Deepak Sharma', '9254447828', 'Dabbu@15', NULL, 'Others', 'Male', 'deepaksharma015@gmail.com', 'Narnaul', 'Narnaul', '123001', 'Mahendergarh', 0, NULL),
-(9, 'prabal pratap singh', '9716332976', '781974', NULL, 'Others', 'Male', 'hiprabal@gmail.com', '232/30 E, new kot gaon, G T road', 'new kot gaon', '201001', 'ghaziabad', 0, NULL),
-(10, 'Surya', '8080808080', '12345678', NULL, 'business', 'Male', 'surya@gmail.com', 'East street', 'Nehru Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL),
-(11, 'sundar', '9797979797', 'jp123', NULL, 'software', 'Male', 'sundar@gmail.com', 'East Street', 'Manambadi', '612503', 'Thanjavur', 500, NULL),
-(12, 'pankaj', '8709095817', '8709095817', NULL, 'Business', 'Male', 'singh4384@gmail.com', 'Bibiganj', 'Bampali', '802312', 'Bhojpur', 0, NULL),
-(13, 'harry', '9717723878', 'Harsh@3434', NULL, 'Business', 'Male', 'vardhan1109@gmail.com', 'hhh', 'Ashok Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL),
-(14, 'testID', '9191919191', 'abc123', NULL, 'Distributor', 'Male', 'abc@xyz.com', 'n/a', 'New Friends Colony', '110025', 'South Delhi', 0, NULL),
-(15, 'Nirali', '9650472984', 'qwert6789', NULL, 'business', 'Female', 'niralisingh24@gmail.com', 'Uninav heights', 'Raj Nagar Extension', '201017', 'Ghaziabad', 0, NULL),
-(16, 'Sanjai', '7358832695', 'admin@r8374', NULL, 'Farmer', 'Male', 'sanjai12@gmail.com', 'Trichy', 'manndaram', '621313', 'Tamilnadu', 0, 'upload/users/6209-2022-11-09.jpg'),
-(17, 'Senthilganesh', '9876543234', 'deen123', '866823410975', 'Farmer', 'Male', 'senthi65@gmail.com', 'Nellur', 'kadappa', '654889', 'Retanalr', 0, 'upload/users/4081-2022-11-23.jpg');
+INSERT INTO `users` (`id`, `name`, `mobile`, `password`, `aadhaar_num`, `occupation`, `gender`, `email`, `address`, `village`, `pincode`, `district`, `balance`, `registered_date`, `image`) VALUES
+(1, 'Nehan', '9876543210', 'admin123', NULL, 'Farmer', 'Male', 'sridahar12@gmail.com', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+(2, 'Sanjay', '6544678899', 'admin123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+(3, 'Sanjay', '6555678899', '123445', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', NULL, 0, NULL, NULL),
+(4, 'Sanjay', '6995678899', 'sanjay123', NULL, 'Farmer', 'Male', 'sanjay123@gmail.com', 'ewew', 'ewew', 'dswewe', 'dsds', 0, NULL, NULL),
+(5, 'prasad jp', '9898989898', 'jp123', NULL, 'Farmer', 'Male', 'jayaprasad356@gmail.com', 'ghahs', 'jaja', '613279', 'hsbsbs', 650, NULL, NULL),
+(6, 'huhhh', '9999999999', 'sweswe', NULL, 'Business', 'Female', 'jayaprasad.s@care.ac.in', 'fgg', 'hhh', 'gy', 'vh', 0, NULL, NULL),
+(7, 'harsh Vardhan', '9717723876', 'Harsh@3434', NULL, 'Farmer', 'Male', 'Vardhan1109@gmail.com', 'H.n 343 balu Pura', 'gha', '201001', 'Ghaziabad', 600, NULL, NULL),
+(8, 'Deepak Sharma', '9254447828', 'Dabbu@15', NULL, 'Others', 'Male', 'deepaksharma015@gmail.com', 'Narnaul', 'Narnaul', '123001', 'Mahendergarh', 0, '2022-09-12', NULL),
+(9, 'prabal pratap singh', '9716332976', '781974', NULL, 'Others', 'Male', 'hiprabal@gmail.com', '232/30 E, new kot gaon, G T road', 'new kot gaon', '201001', 'ghaziabad', 0, NULL, NULL),
+(10, 'Surya', '8080808080', '12345678', NULL, 'business', 'Male', 'surya@gmail.com', 'East street', 'Nehru Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL, NULL),
+(11, 'sundar', '9797979797', 'jp123', NULL, 'software', 'Male', 'sundar@gmail.com', 'East Street', 'Manambadi', '612503', 'Thanjavur', 500, NULL, NULL),
+(12, 'pankaj', '8709095817', '8709095817', NULL, 'Business', 'Male', 'singh4384@gmail.com', 'Bibiganj', 'Bampali', '802312', 'Bhojpur', 0, NULL, NULL),
+(13, 'harry', '9717723878', 'Harsh@3434', NULL, 'Business', 'Male', 'vardhan1109@gmail.com', 'hhh', 'Ashok Nagar (Ghaziabad)', '201001', 'Ghaziabad', 0, NULL, NULL),
+(14, 'testID', '9191919191', 'abc123', NULL, 'Distributor', 'Male', 'abc@xyz.com', 'n/a', 'New Friends Colony', '110025', 'South Delhi', 0, NULL, NULL),
+(15, 'Nirali', '9650472984', 'qwert6789', NULL, 'business', 'Female', 'niralisingh24@gmail.com', 'Uninav heights', 'Raj Nagar Extension', '201017', 'Ghaziabad', 0, NULL, NULL),
+(16, 'Sanjai', '7358832695', 'admin@r8374', NULL, 'Farmer', 'Male', 'sanjai12@gmail.com', 'Trichy', 'manndaram', '621313', 'Tamilnadu', 0, NULL, 'upload/users/6209-2022-11-09.jpg'),
+(17, 'Senthilganesh', '9876543234', 'deen123', '866823410975', 'Farmer', 'Male', 'senthi65@gmail.com', 'Nellur', 'kadappa', '654889', 'Retanalr', 0, '2022-12-26', 'upload/users/4081-2022-11-23.jpg');
 
 -- --------------------------------------------------------
 
