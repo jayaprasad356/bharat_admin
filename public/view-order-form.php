@@ -6,7 +6,7 @@ include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-$sql = "SELECT *,orders.id AS id,orders.status AS status FROM orders,products,users,addresses WHERE users.id=orders.user_id AND orders.product_id=products.id  AND orders.id = $order_id";
+$sql = "SELECT *,orders.id AS id,orders.status AS status,users.village AS village,users.address AS address,users.pincode AS pincode FROM `orders`,`products`,`users` WHERE orders.user_id=users.id AND orders.product_id=products.id  AND orders.id = '$order_id'";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
@@ -72,20 +72,8 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['pincode'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">City</th>
-                                <td><?php echo $res[0]['city'] ?></td>
-                            </tr>
-                            <tr>
                                 <th style="width: 200px">District</th>
                                 <td><?php echo $res[0]['district'] ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">State</th>
-                                <td><?php echo $res[0]['state'] ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Country</th>
-                                <td><?php echo $res[0]['country'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Status</th>
