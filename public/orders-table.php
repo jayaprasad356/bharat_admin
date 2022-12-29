@@ -12,17 +12,45 @@
             <!-- Left col -->
             <div class="col-xs-12">
                 <div class="box">
-                   <div class="box-header">
+                <div class="box-header">
                            <div class="form-group col-md-3">
-                                <h4 class="box-title">Filter by Order Date </h4><br>
+                                <h4 class="box-title">Filter by Ordered Date </h4><br>
                                 <input type="date" class="form-control" name="date" id="date" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                       <h4 class="box-title">Filter by Month </h4>
+                                        <select id='month' name="month" class='form-control'>
+                                            <option value="">select</option>
+                                                <?php
+                                                $sql = "SELECT id,month FROM `months`";
+                                                $db->sql($sql);
+                                                $result = $db->getResult();
+                                                foreach ($result as $value) {
+                                                ?>
+                                                    <option value='<?= $value['id'] ?>'><?= $value['month'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <h4 class="box-title">Filter by Year </h4><br>
+                                <select id='year' name="year" class='form-control'>
+                                    <option value="">select</option>
+                                        <?php
+                                        $sql = "SELECT id,year FROM `years`";
+                                        $db->sql($sql);
+                                        $result = $db->getResult();
+                                        foreach ($result as $value) {
+                                        ?>
+                                            <option value='<?= $value['year'] ?>'><?= $value['year'] ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                     </div>
 
                     <!-- /.box-header -->
                     <div class="box-body table-responsive">
-                        <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=orders" data-page-list="[5, 10, 20, 50, 100, 200]" data-show-refresh="true" data-show-columns="true" data-side-pagination="server" data-pagination="true" data-search="true" data-trim-on-search="false" data-filter-control="true" data-query-params="queryParams" data-sort-name="orders.id" data-sort-order="desc" data-export-options='{
-                            "fileName": "users-list-<?= date('d-m-Y') ?>",
+                        <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=orders" data-page-list="[5, 10, 20, 50, 100, 200]" data-show-refresh="true" data-show-columns="true" data-side-pagination="server" data-pagination="true" data-search="true" data-trim-on-search="false" data-filter-control="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-export-options='{
+                            "fileName": "orders-list-<?= date('d-m-Y') ?>",
                             "ignoreColumn": ["operate"] 
                         }'>
                             <thead>
@@ -53,14 +81,24 @@
         <!-- /.row (main row) -->
     </section>
 <script>
-
     $('#date').on('change', function() {
+        id = $('#date').val();
+        $('#users_table').bootstrapTable('refresh');
+    });
+    $('#month').on('change', function() {
+        id = $('#month').val();
+        $('#users_table').bootstrapTable('refresh');
+    });
+    $('#year').on('change', function() {
+        id = $('#year').val();
         $('#users_table').bootstrapTable('refresh');
     });
 
     function queryParams(p) {
         return {
             "date": $('#date').val(),
+            "month": $('#month').val(),
+            "year": $('#year').val(),
             limit: p.limit,
             sort: p.sort,
             order: p.order,

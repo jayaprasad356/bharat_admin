@@ -16,6 +16,36 @@
                                 <h4 class="box-title">Filter by Registered Date </h4><br>
                                 <input type="date" class="form-control" name="date" id="date" />
                             </div>
+                            <div class="form-group col-md-4">
+                                       <h4 class="box-title">Filter by Month </h4>
+                                        <select id='month' name="month" class='form-control'>
+                                            <option value="">select</option>
+                                                <?php
+                                                $sql = "SELECT id,month FROM `months`";
+                                                $db->sql($sql);
+                                                $result = $db->getResult();
+                                                $month = date('m');
+                                                foreach ($result as $value) {
+                                                ?>
+                                                    <option value='<?= $value['id'] ?>' <?=$month == $value['id'] ? ' selected="selected"' : '';?>><?= $value['month'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <h4 class="box-title">Filter by Registered Year </h4><br>
+                                <select id='year' name="year" class='form-control'>
+                                    <option value="">select</option>
+                                        <?php
+                                        $sql = "SELECT id,year FROM `years`";
+                                        $db->sql($sql);
+                                        $result = $db->getResult();
+                                        $year = date('Y');
+                                        foreach ($result as $value) {
+                                        ?>
+                                            <option value='<?= $value['year'] ?>' <?=$year == $value['year'] ? ' selected="selected"' : '';?>><?= $value['year'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                     </div>
                     
                     <div  class="box-body table-responsive">
@@ -56,11 +86,20 @@
         id = $('#date').val();
         $('#users_table').bootstrapTable('refresh');
     });
-   
+    $('#month').on('change', function() {
+        id = $('#month').val();
+        $('#users_table').bootstrapTable('refresh');
+    });
+    $('#year').on('change', function() {
+        id = $('#year').val();
+        $('#users_table').bootstrapTable('refresh');
+    });
 
     function queryParams(p) {
         return {
             "date": $('#date').val(),
+            "month": $('#month').val(),
+            "year": $('#year').val(),
             limit: p.limit,
             sort: p.sort,
             order: p.order,

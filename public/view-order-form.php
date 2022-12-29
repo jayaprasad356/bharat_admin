@@ -64,6 +64,10 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['mrp'] ?></td>
                             </tr>
                             <tr>
+                                <th style="width: 200px">Delivery Charge</th>
+                                <td><?php echo $res[0]['delivery_charges'] ?></td>
+                            </tr>
+                            <tr>
                                 <th style="width: 200px">Address</th>
                                 <td><?php echo $res[0]['address'] ?></td>
                             </tr>

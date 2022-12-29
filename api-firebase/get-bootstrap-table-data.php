@@ -28,7 +28,6 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-
 include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 include_once('../includes/crud.php');
@@ -52,6 +51,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
     if (isset($_GET['date']) && $_GET['date'] != '') {
         $date = $db->escapeString($fn->xss_clean($_GET['date']));
         $where .= "AND registered_date='$date' ";
+    }
+    if (isset($_GET['month']) && $_GET['month'] != '') {
+        $month = $db->escapeString($fn->xss_clean($_GET['month']));
+        $where .= "AND MONTH(registered_date)='$month' ";
+    }
+    if (isset($_GET['year']) && $_GET['year'] != '') {
+        $year = $db->escapeString($fn->xss_clean($_GET['year']));
+        $where .= "AND YEAR(`registered_date`)='$year' ";
     }
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
@@ -385,15 +392,22 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
 }
 
 if (isset($_GET['table']) && $_GET['table'] == 'orders') {
-
     $offset = 0;
     $limit = 10;
-    $sort = 'orders.id';
-    $order = 'DESC';
     $where = '';
-    if (isset($_GET['date']) && $_GET['date'] != '') {
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['date']) && !empty($_GET['date'] != '')){
         $date = $db->escapeString($fn->xss_clean($_GET['date']));
-        $where .= "AND order_date='$date' ";
+        $where .= "AND o.order_date = '$date' ";  
+    }
+    if (isset($_GET['year']) && !empty($_GET['year'] != '')){
+        $year = $db->escapeString($fn->xss_clean($_GET['year']));
+        $where .= "AND YEAR(o.order_date) = '$year' ";  
+    }
+    if (isset($_GET['month']) && !empty($_GET['month'] != '')){
+        $month = $db->escapeString($fn->xss_clean($_GET['month']));
+        $where .= "AND MONTH(o.order_date) = '$month' ";  
     }
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
@@ -407,34 +421,32 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "AND users.name like '%" . $search . "%' ";
+        $where .= "AND u.name like '%" . $search . "%' OR p.product_name like '%" . $search . "%' OR o.id like '%" . $search . "%'  OR p.brand like '%" . $search . "%' OR u.mobile like '%" . $search . "%' OR o.method like '%" . $search . "%' ";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `orders` " . $where;
+    $join = "LEFT JOIN `users` u ON o.user_id = u.id LEFT JOIN `products` p ON o.product_id = p.id WHERE o.id IS NOT NULL ";
+
+    $sql = "SELECT COUNT(o.id) as total FROM `orders` o $join " . $where . "";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
-
-    $sql = "SELECT *,orders.id AS id,orders.status AS status FROM orders,products,users WHERE users.id=orders.user_id AND orders.product_id=products.id". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
-    $db->sql($sql);
+    $sql = "SELECT o.id AS id,o.*,u.name AS name,u.mobile AS mobile,p.product_name AS product_name,p.price AS price,p.brand AS brand,p.mrp AS mrp,p.image AS image,o.status AS status,o.order_date FROM `orders` o $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit";
+     $db->sql($sql);
     $res = $db->getResult();
 
-    
     $bulkData = array();
     $bulkData['total'] = $total;
-    
     $rows = array();
     $tempRow = array();
-
     foreach ($res as $row) {
-
+        
         $operate = '<a href="view-order.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];

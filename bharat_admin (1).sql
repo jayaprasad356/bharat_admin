@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2022 at 12:37 PM
+-- Generation Time: Dec 29, 2022 at 09:05 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -206,6 +206,35 @@ INSERT INTO `doctors` (`id`, `name`, `role`, `experience`, `fees`, `image`) VALU
 (3, 'Brad', 'Orthopedic ', '13 Years', 600, 'upload/doctors/0313-2022-09-17.jpg'),
 (4, 'Sarah', 'Gynecologist', '18 Years', 600, 'upload/doctors/4249-2022-09-17.jpg'),
 (5, 'test', 'test', '3', 344, 'upload/doctors/7776-2022-10-06.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `months`
+--
+
+CREATE TABLE `months` (
+  `id` int(11) NOT NULL,
+  `month` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `months`
+--
+
+INSERT INTO `months` (`id`, `month`) VALUES
+(1, 'January'),
+(2, 'February'),
+(3, 'March'),
+(4, 'April'),
+(5, 'May'),
+(6, 'June'),
+(7, 'July'),
+(8, 'August'),
+(9, 'September'),
+(10, 'October'),
+(11, 'November'),
+(12, 'December');
 
 -- --------------------------------------------------------
 
@@ -416,6 +445,29 @@ INSERT INTO `wallet_transactions` (`id`, `user_id`, `date`, `amount`, `type`) VA
 (8, 7, '2022-09-14', 100, 'credit'),
 (9, 7, '2022-09-14', 500, 'credit');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `years`
+--
+
+CREATE TABLE `years` (
+  `id` int(11) NOT NULL,
+  `year` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `years`
+--
+
+INSERT INTO `years` (`id`, `year`) VALUES
+(1, '2021'),
+(2, '2022'),
+(3, '2023'),
+(4, '2024'),
+(5, '2025'),
+(6, '2026');
+
 --
 -- Indexes for dumped tables
 --
@@ -463,6 +515,12 @@ ALTER TABLE `doctors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `months`
+--
+ALTER TABLE `months`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -502,6 +560,12 @@ ALTER TABLE `users`
 -- Indexes for table `wallet_transactions`
 --
 ALTER TABLE `wallet_transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `years`
+--
+ALTER TABLE `years`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -551,6 +615,12 @@ ALTER TABLE `doctors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `months`
+--
+ALTER TABLE `months`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -591,6 +661,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `wallet_transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `years`
+--
+ALTER TABLE `years`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
